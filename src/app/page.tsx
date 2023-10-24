@@ -320,7 +320,7 @@ export default function Home() {
     return (
         <>
             <DndContext onDragEnd={handleDragEnd}>
-                <div className="relative mt-12 px-[2%] mb-64">
+                <div className="relative mt-12 px-[2%] mb-12">
                     <Image
                         src="/coathanger2.png"
                         alt="coat hanger"
@@ -391,10 +391,10 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-2 flex-col lg:flex-row justify-center items-center md:text-center mt-24">
+                <div className="flex gap-2 flex-col lg:flex-row justify-center items-center md:text-center">
                     <div className="flex  w-full h-[500px] p-2 flex-row-reverse lg:flex-col items-center justify-between">
                         <Dropabble id="A">
-                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
+                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
                                 <div className="w-full">
                                     {parents.map((parent, idx) => {
                                         return parent.parent === "A"
@@ -429,7 +429,7 @@ export default function Home() {
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
                         <Dropabble id="B">
-                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
+                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "B"
                                         ? draggableContent[idx]
@@ -460,7 +460,7 @@ export default function Home() {
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
                         <Dropabble id="C">
-                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
+                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "C"
                                         ? draggableContent[idx]
@@ -491,7 +491,7 @@ export default function Home() {
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
                         <Dropabble id="D">
-                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
+                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "D"
                                         ? draggableContent[idx]
