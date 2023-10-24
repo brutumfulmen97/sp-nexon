@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
     return (
@@ -133,7 +133,7 @@ export default function Home() {
                             alt="sweater"
                         />
                     </div>
-                    <div className=" w-[17%] h-[100%] text-center -ml-[9.8%] pt-[1.5%]   inline-block">
+                    <div className=" w-[17%] h-[100%] text-center -ml-[9.5%] pt-[1.5%]   inline-block">
                         <Image
                             src="/sweater11.png"
                             width={1000}
@@ -156,6 +156,92 @@ export default function Home() {
                             }}
                             alt="sweater"
                         />
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-col lg:flex-row md:text-center mt-24">
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <Image
+                        src="/shelf.png"
+                        width={500}
+                        height={500}
+                        alt="polica"
+                    />
+                    <h1 className="text-8xl text-white">0</h1>
+                    <h2 className="text-3xl">SZENT ISTVATN KIRALY</h2>
+                    <h2 className="text-3xl">ZENEI ALAPITVANY</h2>
+                    <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
+                        <Image
+                            className="absolute left-0 top-[-4px]"
+                            src="/infoIcon.png"
+                            width={40}
+                            height={40}
+                            alt="info icon"
+                        />
+                        <Link href="#">www.szecenyistvan.hu</Link>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <Image
+                        src="/shelf.png"
+                        width={500}
+                        height={500}
+                        alt="polica"
+                    />
+                    <h1 className="text-8xl text-white">0</h1>
+                    <h2 className="text-3xl">SZENT ISTVATN KIRALY</h2>
+                    <h2 className="text-3xl">ZENEI ALAPITVANY</h2>
+                    <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
+                        <Image
+                            className="absolute left-0 top-[-4px]"
+                            src="/infoIcon.png"
+                            width={40}
+                            height={40}
+                            alt="info icon"
+                        />
+                        <Link href="#">www.szecenyistvan.hu</Link>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <Image
+                        src="/shelf.png"
+                        width={500}
+                        height={500}
+                        alt="polica"
+                    />
+                    <h1 className="text-8xl text-white">0</h1>
+                    <h2 className="text-3xl">SZENT ISTVATN KIRALY</h2>
+                    <h2 className="text-3xl">ZENEI ALAPITVANY</h2>
+                    <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
+                        <Image
+                            className="absolute left-0 top-[-4px]"
+                            src="/infoIcon.png"
+                            width={40}
+                            height={40}
+                            alt="info icon"
+                        />
+                        <Link href="#">www.szecenyistvan.hu</Link>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <Image
+                        src="/shelf.png"
+                        width={500}
+                        height={500}
+                        alt="polica"
+                    />
+                    <h1 className="text-8xl text-white">0</h1>
+                    <h2 className="text-3xl">SZENT ISTVATN KIRALY</h2>
+                    <h2 className="text-3xl">ZENEI ALAPITVANY</h2>
+                    <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
+                        <Image
+                            className="absolute left-0 top-[-4px]"
+                            src="/infoIcon.png"
+                            width={40}
+                            height={40}
+                            alt="info icon"
+                        />
+                        <Link href="#">www.szecenyistvan.hu</Link>
                     </div>
                 </div>
             </div>
