@@ -37,58 +37,72 @@ function Dropabble(props: { id: string; children: React.ReactNode }) {
     );
 }
 
+const initialParents = [
+    {
+        parent: null,
+        id: "sweater1",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater2",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater3",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater4",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater5",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater6",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater7",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater8",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater9",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater10",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater11",
+        isSorted: false,
+    },
+    {
+        parent: null,
+        id: "sweater12",
+        isSorted: false,
+    },
+];
+
 export default function Home() {
     const droppables = ["A", "B", "C", "D"];
-    const [parents, setParents] = useState([
-        {
-            parent: null,
-            id: "sweater1",
-        },
-        {
-            parent: null,
-            id: "sweater2",
-        },
-        {
-            parent: null,
-            id: "sweater3",
-        },
-        {
-            parent: null,
-            id: "sweater4",
-        },
-        {
-            parent: null,
-            id: "sweater5",
-        },
-        {
-            parent: null,
-            id: "sweater6",
-        },
-        {
-            parent: null,
-            id: "sweater7",
-        },
-        {
-            parent: null,
-            id: "sweater8",
-        },
-        {
-            parent: null,
-            id: "sweater9",
-        },
-        {
-            parent: null,
-            id: "sweater10",
-        },
-        {
-            parent: null,
-            id: "sweater11",
-        },
-        {
-            parent: null,
-            id: "sweater12",
-        },
-    ]);
+    const [parents, setParents] = useState(initialParents);
     function handleDragEnd(event: any) {
         const {
             over,
@@ -96,19 +110,24 @@ export default function Home() {
         } = event;
 
         setParents((prev) => {
-            const novi = prev.map((item) => {
+            return prev.map((item) => {
                 if (item.id === id)
-                    return { ...item, parent: over ? over.id : null };
+                    return {
+                        ...item,
+                        parent: over ? over.id : null,
+                        isSorted: over ? true : false,
+                    };
                 else return item;
             });
-            return novi;
         });
     }
 
     const draggableContent = [
         <Draggable id="sweater1" key="sweater1">
             <Image
-                src="/sweater1.png"
+                src={
+                    parents[0].isSorted ? "/sweater-white.png" : "/sweater1.png"
+                }
                 width={200}
                 height={200}
                 style={{
@@ -120,11 +139,15 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater2" key="sweater2">
             <Image
-                src="/sweater2.png"
+                src={
+                    parents[1].isSorted
+                        ? "/sweater-darkgreen.png"
+                        : "/sweater2.png"
+                }
                 width={200}
                 height={200}
                 style={{
-                    width: "70%",
+                    width: parents[1].isSorted ? "100%" : "70%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -132,7 +155,11 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater3" key="sweater3">
             <Image
-                src="/sweater3.png"
+                src={
+                    parents[2].isSorted
+                        ? "/sweater-lightblue.png"
+                        : "/sweater3.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
@@ -145,11 +172,11 @@ export default function Home() {
         <Draggable id="sweater4" key="sweater4">
             {" "}
             <Image
-                src="/sweater4.png"
+                src={parents[3].isSorted ? "/sweater-red.png" : "/sweater4.png"}
                 width={1000}
                 height={1000}
                 style={{
-                    width: "95%",
+                    width: parents[3].isSorted ? "100%" : "95%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -158,11 +185,15 @@ export default function Home() {
         <Draggable id="sweater5" key="sweater5">
             {" "}
             <Image
-                src="/sweater5.png"
+                src={
+                    parents[4].isSorted
+                        ? "/sweater-green2.png"
+                        : "/sweater5.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
-                    width: "95%",
+                    width: parents[4].isSorted ? "100%" : "95%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -171,11 +202,13 @@ export default function Home() {
         <Draggable id="sweater6" key="sweater6">
             {" "}
             <Image
-                src="/sweater6.png"
+                src={
+                    parents[5].isSorted ? "/sweater-white.png" : "/sweater6.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
-                    width: "95%",
+                    width: parents[5].isSorted ? "100%" : "95%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -184,11 +217,13 @@ export default function Home() {
         <Draggable id="sweater7" key="sweater7">
             {" "}
             <Image
-                src="/sweater7.png"
+                src={
+                    parents[6].isSorted ? "/sweater-beige.png" : "/sweater7.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
-                    width: "85%",
+                    width: parents[6].isSorted ? "100%" : "85%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -196,11 +231,15 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater8" key="sweater8">
             <Image
-                src="/sweater8.png"
+                src={
+                    parents[7].isSorted
+                        ? "/sweater-lightgreen.png"
+                        : "/sweater8.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
-                    width: "90%",
+                    width: parents[7].isSorted ? "100%" : "90%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -209,11 +248,15 @@ export default function Home() {
         <Draggable id="sweater9" key="sweater9">
             {" "}
             <Image
-                src="/sweater9.png"
+                src={
+                    parents[8].isSorted
+                        ? "/sweater-maroon.png"
+                        : "/sweater9.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
-                    width: "70%",
+                    width: parents[8].isSorted ? "100%" : "70%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -222,11 +265,15 @@ export default function Home() {
         <Draggable id="sweater10" key="sweater10">
             {" "}
             <Image
-                src="/sweater10.png"
+                src={
+                    parents[9].isSorted
+                        ? "/sweater-green2.png"
+                        : "/sweater10.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
-                    width: "85%",
+                    width: parents[9].isSorted ? "100%" : "85%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -235,11 +282,15 @@ export default function Home() {
         <Draggable id="sweater11" key="sweater11">
             {" "}
             <Image
-                src="/sweater11.png"
+                src={
+                    parents[10].isSorted
+                        ? "/sweater-blue.png"
+                        : "/sweater11.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
-                    width: "85%",
+                    width: parents[10].isSorted ? "100%" : "85%",
                     height: "auto",
                 }}
                 alt="sweater"
@@ -248,7 +299,11 @@ export default function Home() {
         <Draggable id="sweater12" key="sweater12">
             {" "}
             <Image
-                src="/sweater12.png"
+                src={
+                    parents[11].isSorted
+                        ? "/sweater-lightblue.png"
+                        : "/sweater12.png"
+                }
                 width={1000}
                 height={1000}
                 style={{
@@ -339,12 +394,14 @@ export default function Home() {
                 <div className="flex gap-2 flex-col lg:flex-row justify-center items-center md:text-center mt-24">
                     <div className="flex  w-full h-[500px] p-2 flex-row-reverse lg:flex-col items-center justify-between">
                         <Dropabble id="A">
-                            <div className="w-[150px] h-[150px] bg-green-300">
-                                {parents.map((parent, idx) => {
-                                    return parent.parent === "A"
-                                        ? draggableContent[idx]
-                                        : null;
-                                })}
+                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
+                                <div className="w-full">
+                                    {parents.map((parent, idx) => {
+                                        return parent.parent === "A"
+                                            ? draggableContent[idx]
+                                            : null;
+                                    })}
+                                </div>
                             </div>
                         </Dropabble>
                         <Image
@@ -372,7 +429,7 @@ export default function Home() {
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
                         <Dropabble id="B">
-                            <div className="w-[150px] h-[150px] bg-green-300">
+                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "B"
                                         ? draggableContent[idx]
@@ -403,7 +460,7 @@ export default function Home() {
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
                         <Dropabble id="C">
-                            <div className="w-[150px] h-[150px] bg-green-300">
+                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "C"
                                         ? draggableContent[idx]
@@ -434,7 +491,7 @@ export default function Home() {
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
                         <Dropabble id="D">
-                            <div className="w-[150px] h-[150px] bg-green-300">
+                            <div className="w-[150px] h-[150px] bg-green-300 flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "D"
                                         ? draggableContent[idx]
@@ -465,7 +522,10 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="w-full flex justify-center mt-8 mb-24">
-                    <button className="py-2 px-8 bg-red-600 hover:bg-red-500 text-white rounded-full border-4 border-white">
+                    <button
+                        className="py-2 px-8 bg-red-600 hover:bg-red-500 text-white rounded-full border-4 border-white"
+                        onClick={() => setParents(initialParents)}
+                    >
                         VISSZAÁLLÍTÁS
                     </button>
                 </div>
