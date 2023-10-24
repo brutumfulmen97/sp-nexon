@@ -5,7 +5,7 @@ import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import Image from "next/image";
 import Link from "next/link";
 
-function Draggable(props) {
+function Draggable(props: { id: string; children: React.ReactNode }) {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: props.id,
     });
@@ -22,7 +22,7 @@ function Draggable(props) {
     );
 }
 
-function Dropabble(props) {
+function Dropabble(props: { id: string; children: React.ReactNode }) {
     const { isOver, setNodeRef } = useDroppable({
         id: props.id,
     });
@@ -38,15 +38,229 @@ function Dropabble(props) {
 }
 
 export default function Home() {
-    const droppables = ["A"];
-    const [parent, setParent] = useState(null);
+    const droppables = ["A", "B", "C", "D"];
+    const [parents, setParents] = useState([
+        {
+            parent: null,
+            id: "sweater1",
+        },
+        {
+            parent: null,
+            id: "sweater2",
+        },
+        {
+            parent: null,
+            id: "sweater3",
+        },
+        {
+            parent: null,
+            id: "sweater4",
+        },
+        {
+            parent: null,
+            id: "sweater5",
+        },
+        {
+            parent: null,
+            id: "sweater6",
+        },
+        {
+            parent: null,
+            id: "sweater7",
+        },
+        {
+            parent: null,
+            id: "sweater8",
+        },
+        {
+            parent: null,
+            id: "sweater9",
+        },
+        {
+            parent: null,
+            id: "sweater10",
+        },
+        {
+            parent: null,
+            id: "sweater11",
+        },
+        {
+            parent: null,
+            id: "sweater12",
+        },
+    ]);
     function handleDragEnd(event: any) {
-        const { over } = event;
+        const {
+            over,
+            active: { id },
+        } = event;
 
-        // If the item is dropped over a container, set it as the parent
-        // otherwise reset the parent to `null`
-        setParent(over ? over.id : null);
+        setParents((prev) => {
+            const novi = prev.map((item) => {
+                if (item.id === id)
+                    return { ...item, parent: over ? over.id : null };
+                else return item;
+            });
+            return novi;
+        });
     }
+
+    const draggableContent = [
+        <Draggable id="sweater1" key="sweater1">
+            <Image
+                src="/sweater1.png"
+                width={200}
+                height={200}
+                style={{
+                    width: "100%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater2" key="sweater2">
+            <Image
+                src="/sweater2.png"
+                width={200}
+                height={200}
+                style={{
+                    width: "70%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater3" key="sweater3">
+            <Image
+                src="/sweater3.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "100%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater4" key="sweater4">
+            {" "}
+            <Image
+                src="/sweater4.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "95%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater5" key="sweater5">
+            {" "}
+            <Image
+                src="/sweater5.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "95%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater6" key="sweater6">
+            {" "}
+            <Image
+                src="/sweater6.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "95%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater7" key="sweater7">
+            {" "}
+            <Image
+                src="/sweater7.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "85%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater8" key="sweater8">
+            <Image
+                src="/sweater8.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "90%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater9" key="sweater9">
+            {" "}
+            <Image
+                src="/sweater9.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "70%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater10" key="sweater10">
+            {" "}
+            <Image
+                src="/sweater10.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "85%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater11" key="sweater11">
+            {" "}
+            <Image
+                src="/sweater11.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "85%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+        <Draggable id="sweater12" key="sweater12">
+            {" "}
+            <Image
+                src="/sweater12.png"
+                width={1000}
+                height={1000}
+                style={{
+                    width: "100%",
+                    height: "auto",
+                }}
+                alt="sweater"
+            />
+        </Draggable>,
+    ];
+
+    console.log(parents);
 
     return (
         <>
@@ -60,175 +274,83 @@ export default function Home() {
                         style={{ width: "100%", height: "auto" }}
                     />
                     <div className="absolute h-[65%] top-[6%] z-10 left-0 w-full pl-[1%]">
-                        {parent === null ? (
-                            <Draggable id="draggable">
-                                <div className=" w-[16%] h-[100%] text-center  inline-block ">
-                                    <Image
-                                        src="/sweater1.png"
-                                        width={200}
-                                        height={200}
-                                        style={{
-                                            width: "100%",
-                                            height: "auto",
-                                        }}
-                                        alt="sweater"
-                                    />
-                                </div>
-                            </Draggable>
-                        ) : null}
+                        <div className=" w-[16%] h-[100%] text-center  inline-block ">
+                            {parents[0].parent === null
+                                ? draggableContent[0]
+                                : null}
+                        </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[8%]  inline-block">
-                            <Image
-                                src="/sweater2.png"
-                                width={200}
-                                height={200}
-                                style={{
-                                    width: "70%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[1].parent === null
+                                ? draggableContent[1]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[11%] inline-block">
-                            <Image
-                                src="/sweater3.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "100%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[2].parent === null
+                                ? draggableContent[2]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[9%] pt-[1%]  inline-block">
-                            <Image
-                                src="/sweater4.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "95%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[3].parent === null
+                                ? draggableContent[3]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[9.7%] pt-[1%]  inline-block">
-                            <Image
-                                src="/sweater5.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "95%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[4].parent === null
+                                ? draggableContent[4]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[8.5%]  inline-block">
-                            <Image
-                                src="/sweater6.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "95%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[5].parent === null
+                                ? draggableContent[5]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[9%] pt-[1.5%]  inline-block">
-                            <Image
-                                src="/sweater7.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "85%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[6].parent === null
+                                ? draggableContent[6]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[10%]   inline-block">
-                            <Image
-                                src="/sweater8.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "90%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[7].parent === null
+                                ? draggableContent[7]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[7.5%] inline-block">
-                            <Image
-                                src="/sweater9.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "70%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[8].parent === null
+                                ? draggableContent[8]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[11%] pt-[1.5%]   inline-block">
-                            <Image
-                                src="/sweater10.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "85%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[9].parent === null
+                                ? draggableContent[9]
+                                : null}
                         </div>
                         <div className=" w-[17%] h-[100%] text-center -ml-[9.5%] pt-[1.5%]   inline-block">
-                            <Image
-                                src="/sweater11.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "85%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[10].parent === null
+                                ? draggableContent[10]
+                                : null}
                         </div>
                         <div className=" w-[15%] h-[100%] text-center -ml-[8.8%] pt-[1.5%]  inline-block">
-                            <Image
-                                src="/sweater12.png"
-                                width={1000}
-                                height={1000}
-                                style={{
-                                    width: "100%",
-                                    height: "auto",
-                                }}
-                                alt="sweater"
-                            />
+                            {parents[11].parent === null
+                                ? draggableContent[11]
+                                : null}
                         </div>
                     </div>
                 </div>
                 <div className="flex gap-2 flex-col lg:flex-row justify-center items-center md:text-center mt-24">
                     <div className="flex  w-full h-[500px] p-2 flex-row-reverse lg:flex-col items-center justify-between">
                         <Dropabble id="A">
-                            {parent === "A" ? (
-                                "moze tu"
-                            ) : (
-                                <div className="border border-black w-full h-full">
-                                    123
-                                </div>
-                            )}
+                            <div className="w-[150px] h-[150px] bg-green-300">
+                                {parents.map((parent, idx) => {
+                                    return parent.parent === "A"
+                                        ? draggableContent[idx]
+                                        : null;
+                                })}
+                            </div>
                         </Dropabble>
                         <Image
                             src="/shelf.png"
                             width={300}
                             height={500}
-                            // style={{
-                            //     width: "100%",
-                            //     height: "auto",
-                            // }}
                             alt="polica"
                         />
                         <h1 className="text-8xl text-white">0</h1>
@@ -249,6 +371,15 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
+                        <Dropabble id="B">
+                            <div className="w-[150px] h-[150px] bg-green-300">
+                                {parents.map((parent, idx) => {
+                                    return parent.parent === "B"
+                                        ? draggableContent[idx]
+                                        : null;
+                                })}
+                            </div>
+                        </Dropabble>
                         <Image
                             src="/shelf.png"
                             width={300}
@@ -271,6 +402,15 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
+                        <Dropabble id="C">
+                            <div className="w-[150px] h-[150px] bg-green-300">
+                                {parents.map((parent, idx) => {
+                                    return parent.parent === "C"
+                                        ? draggableContent[idx]
+                                        : null;
+                                })}
+                            </div>
+                        </Dropabble>
                         <Image
                             src="/shelf.png"
                             width={300}
@@ -293,6 +433,15 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
+                        <Dropabble id="D">
+                            <div className="w-[150px] h-[150px] bg-green-300">
+                                {parents.map((parent, idx) => {
+                                    return parent.parent === "D"
+                                        ? draggableContent[idx]
+                                        : null;
+                                })}
+                            </div>
+                        </Dropabble>
                         <Image
                             src="/shelf.png"
                             width={300}
