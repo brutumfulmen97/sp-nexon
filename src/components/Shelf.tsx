@@ -13,7 +13,13 @@ export default function Shelf({ elements, title, link }: ShelfProps) {
             <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
                 {elements.map((el: any) => el)}
             </div>
-            <Image src="/shelf.png" width={1000} height={500} alt="polica" />
+            <Image
+                src="/shelf.png"
+                width={1000}
+                height={500}
+                alt="shelf"
+                className="mt-1"
+            />
             <h1 className="text-8xl text-white">{elements.length}</h1>
             <h2 className="text-2xl h-[100px]">{title.toUpperCase()}</h2>
             <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">

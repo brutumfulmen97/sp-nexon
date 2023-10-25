@@ -1,6 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
 
-export default function Dropabble(props: {
+export default function Droppable(props: {
     id: string;
     children: React.ReactNode;
     className: string;
@@ -9,7 +9,7 @@ export default function Dropabble(props: {
         id: props.id,
     });
     const style = {
-        color: isOver ? "green" : undefined,
+        color: isOver ? "darkgreen" : undefined,
     };
 
     return (

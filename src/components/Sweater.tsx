@@ -13,6 +13,8 @@ export default function Sweater({
     imgSmall,
     width,
 }: SweaterProps) {
+    const randomValue = Math.round(Math.random());
+    console.log(randomValue);
     return (
         <>
             <Image
@@ -22,7 +24,9 @@ export default function Sweater({
                 style={{
                     width: isSorted ? "100%" : width,
                     height: "auto",
+                    marginLeft: `${randomValue * 3}px`,
                 }}
+                className="-mb-1"
                 alt="sweater"
             />
         </>

@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { DndContext } from "@dnd-kit/core";
 import Image from "next/image";
-import Link from "next/link";
 import Draggable from "@/components/Draggable";
-import Dropabble from "@/components/Droppable";
+import Droppable from "@/components/Droppable";
 import Sweater from "@/components/Sweater";
 import Shelf from "@/components/Shelf";
 
@@ -143,96 +142,96 @@ export default function Home() {
         <Draggable id="sweater1" key="sweater1">
             <Sweater
                 isSorted={parents[0].isSorted}
-                imgBig={"/sweater-blue.png"}
-                imgSmall={"/sweater1.png"}
+                imgSmall={"/sweater-white.png"}
+                imgBig={"/sweater1.png"}
                 width={"100%"}
             />
         </Draggable>,
         <Draggable id="sweater2" key="sweater2">
             <Sweater
                 isSorted={parents[1].isSorted}
-                imgBig={"/sweater-darkgreen.png"}
-                imgSmall={"/sweater2.png"}
+                imgSmall={"/sweater-darkgreen.png"}
+                imgBig={"/sweater2.png"}
                 width={"70%"}
             />
         </Draggable>,
         <Draggable id="sweater3" key="sweater3">
             <Sweater
                 isSorted={parents[2].isSorted}
-                imgBig={"/sweater-lightblue.png"}
-                imgSmall={"/sweater3.png"}
+                imgSmall={"/sweater-lightblue.png"}
+                imgBig={"/sweater3.png"}
                 width={"100%"}
             />
         </Draggable>,
         <Draggable id="sweater4" key="sweater4">
             <Sweater
                 isSorted={parents[3].isSorted}
-                imgBig={"/sweater-red.png"}
-                imgSmall={"/sweater4.png"}
+                imgSmall={"/sweater-red.png"}
+                imgBig={"/sweater4.png"}
                 width={"95%"}
             />
         </Draggable>,
         <Draggable id="sweater5" key="sweater5">
             <Sweater
                 isSorted={parents[4].isSorted}
-                imgBig={"/sweater-green2.png"}
-                imgSmall={"/sweater5.png"}
+                imgSmall={"/sweater-green2.png"}
+                imgBig={"/sweater5.png"}
                 width={"95%"}
             />
         </Draggable>,
         <Draggable id="sweater6" key="sweater6">
             <Sweater
                 isSorted={parents[5].isSorted}
-                imgBig={"/sweater-white.png"}
-                imgSmall={"/sweater6.png"}
+                imgSmall={"/sweater-white.png"}
+                imgBig={"/sweater6.png"}
                 width={"95%"}
             />
         </Draggable>,
         <Draggable id="sweater7" key="sweater7">
             <Sweater
                 isSorted={parents[6].isSorted}
-                imgBig={"/sweater-beige.png"}
-                imgSmall={"/sweater7.png"}
+                imgSmall={"/sweater-beige.png"}
+                imgBig={"/sweater7.png"}
                 width={"85%"}
             />
         </Draggable>,
         <Draggable id="sweater8" key="sweater8">
             <Sweater
                 isSorted={parents[7].isSorted}
-                imgBig={"/sweater-lightgreen.png"}
-                imgSmall={"/sweater8.png"}
+                imgSmall={"/sweater-lightgreen.png"}
+                imgBig={"/sweater8.png"}
                 width={"90%"}
             />
         </Draggable>,
         <Draggable id="sweater9" key="sweater9">
             <Sweater
                 isSorted={parents[8].isSorted}
-                imgBig={"/sweater-maroon.png"}
-                imgSmall={"/sweater9.png"}
+                imgSmall={"/sweater-maroon.png"}
+                imgBig={"/sweater9.png"}
                 width={"70%"}
             />
         </Draggable>,
         <Draggable id="sweater10" key="sweater10">
             <Sweater
                 isSorted={parents[9].isSorted}
-                imgBig={"/sweater-green2.png"}
-                imgSmall={"/sweater10.png"}
+                imgSmall={"/sweater-green2.png"}
+                imgBig={"/sweater10.png"}
                 width={"85%"}
             />
         </Draggable>,
         <Draggable id="sweater11" key="sweater11">
             <Sweater
                 isSorted={parents[10].isSorted}
-                imgBig={"/sweater-blue.png"}
-                imgSmall={"/sweater11.png"}
+                imgSmall={"/sweater-blue.png"}
+                imgBig={"/sweater11.png"}
                 width={"85%"}
             />
         </Draggable>,
         <Draggable id="sweater12" key="sweater12">
             <Sweater
                 isSorted={parents[11].isSorted}
-                imgBig={"/sweater-lightblue.png"}
-                imgSmall={"/sweater12.png"}
+                imgSmall={"/sweater-lightblue.png"}
+                imgBig={"/sweater12.png"}
                 width={"100%"}
             />
         </Draggable>,
@@ -361,13 +360,13 @@ export default function Home() {
 
                 <div className="w-full flex flex-col lg:flex-row justify-center items-start md:text-center ">
                     {["A", "B", "C", "D"].map((el, idx) => (
-                        <Dropabble id={el} className="w-full" key={el}>
+                        <Droppable id={el} className="w-full" key={el}>
                             <Shelf
                                 elements={shelves[idx].elements}
                                 title={titles[idx]}
                                 link={links[idx]}
                             />
-                        </Dropabble>
+                        </Droppable>
                     ))}
                 </div>
 
