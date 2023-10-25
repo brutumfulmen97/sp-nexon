@@ -107,12 +107,29 @@ const initialParents = [
 export default function Home() {
     const droppables = ["A", "B", "C", "D"];
     const [parents, setParents] = useState(initialParents);
+    const [shelfs, setShelfs] = useState([
+        {
+            id: "A",
+            elements: [],
+        },
+        {
+            id: "B",
+            elements: [],
+        },
+        {
+            id: "C",
+            elements: [],
+        },
+        {
+            id: "D",
+            elements: [],
+        },
+    ]);
     function handleDragEnd(event: any) {
         const {
             over,
             active: { id },
         } = event;
-
         setParents((prev) => {
             return prev.map((item) => {
                 if (item.id === id)
@@ -124,7 +141,38 @@ export default function Home() {
                 else return item;
             });
         });
+
+        console.log(parents);
+
+        setShelfs((prev: any) => {
+            const element = draggableContent.find((el) => el.props.id === id);
+            return prev.map((shelf: any) => {
+                console.log(shelf.id, id);
+                if (!over) {
+                    return {
+                        ...shelf,
+                        elements: shelf.elements.filter(
+                            (el: any) => el.props.id !== id
+                        ),
+                    };
+                } else if (shelf.id === over.id) {
+                    return {
+                        ...shelf,
+                        elements: [...shelf.elements, element],
+                    };
+                } else {
+                    return {
+                        ...shelf,
+                        elements: shelf.elements.filter(
+                            (el: any) => el.props.id !== id
+                        ),
+                    };
+                }
+            });
+        });
     }
+
+    console.log(shelfs);
 
     const draggableContent = [
         <Draggable id="sweater1" key="sweater1">
@@ -319,8 +367,6 @@ export default function Home() {
         </Draggable>,
     ];
 
-    console.log(parents);
-
     return (
         <>
             <DndContext onDragEnd={handleDragEnd}>
@@ -398,14 +444,13 @@ export default function Home() {
                 <div className="w-full flex flex-col lg:flex-row justify-center items-start md:text-center ">
                     <Dropabble id="A" className="w-full">
                         <div className="flex  w-full   flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
-                                <div className="w-full">
-                                    {parents.map((parent, idx) => {
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
+                                {/* {parents.map((parent, idx) => {
                                         return parent.parent === "A"
                                             ? draggableContent[idx]
                                             : null;
-                                    })}
-                                </div>
+                                    })} */}
+                                {shelfs[0].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
@@ -434,12 +479,13 @@ export default function Home() {
 
                     <Dropabble id="B" className="w-full">
                         <div className="flex w-full    flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
-                                {parents.map((parent, idx) => {
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
+                                {/* {parents.map((parent, idx) => {
                                     return parent.parent === "B"
                                         ? draggableContent[idx]
                                         : null;
-                                })}
+                                })} */}
+                                {shelfs[1].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
@@ -468,12 +514,13 @@ export default function Home() {
 
                     <Dropabble id="C" className="w-full">
                         <div className="flex w-full   flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
-                                {parents.map((parent, idx) => {
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
+                                {/* {parents.map((parent, idx) => {
                                     return parent.parent === "C"
                                         ? draggableContent[idx]
                                         : null;
-                                })}
+                                })} */}
+                                {shelfs[2].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
@@ -502,12 +549,13 @@ export default function Home() {
 
                     <Dropabble id="D" className="w-full">
                         <div className="flex w-full    flex-row-reverse lg:flex-col items-center justify-center gap-4">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
-                                {parents.map((parent, idx) => {
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
+                                {/* {parents.map((parent, idx) => {
                                     return parent.parent === "D"
                                         ? draggableContent[idx]
                                         : null;
-                                })}
+                                })} */}
+                                {shelfs[3].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
