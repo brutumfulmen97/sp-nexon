@@ -294,6 +294,13 @@ export default function Home() {
                         height={1000}
                         style={{ width: "100%", height: "auto" }}
                     />
+                    {parents.every((parent) => parent.parent !== null) && (
+                        <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
+                            <button className="bg-[#0d4067] text-white px-6 py-2 text-4xl font-bold rounded-full border-4 shadow z-10">
+                                ELKULDOM
+                            </button>
+                        </div>
+                    )}
                     <div className="absolute h-[65%] top-[6%] z-10 left-0 w-full pl-[1%]">
                         <div className=" w-[16%] h-[100%] text-center  inline-block ">
                             {parents[0].parent === null
