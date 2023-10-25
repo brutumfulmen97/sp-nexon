@@ -501,7 +501,9 @@ export default function Home() {
                                 height={500}
                                 alt="polica"
                             />
-                            <h1 className="text-8xl text-white">0</h1>
+                            <h1 className="text-8xl text-white">
+                                {shelfs[0].elements.length}
+                            </h1>
                             <h2 className="text-2xl h-[100px]">
                                 SZENT ISTVÁN KIRÁLY ZENEI ALAPÍTVÁNY
                             </h2>
@@ -536,7 +538,9 @@ export default function Home() {
                                 height={500}
                                 alt="polica"
                             />
-                            <h1 className="text-8xl text-white">0</h1>
+                            <h1 className="text-8xl text-white">
+                                {shelfs[1].elements.length}
+                            </h1>
                             <h2 className="text-2xl h-[100px]">
                                 AUTIZMUS ALAPÍTVÁNY
                             </h2>
@@ -571,7 +575,9 @@ export default function Home() {
                                 height={500}
                                 alt="polica"
                             />
-                            <h1 className="text-8xl text-white">0</h1>
+                            <h1 className="text-8xl text-white">
+                                {shelfs[2].elements.length}
+                            </h1>
                             <h2 className="text-2xl h-[100px]">
                                 ÉLELMISZERBANK EGYESÜLETY
                             </h2>
@@ -606,7 +612,9 @@ export default function Home() {
                                 height={500}
                                 alt="polica"
                             />
-                            <h1 className="text-8xl text-white">0</h1>
+                            <h1 className="text-8xl text-white">
+                                {shelfs[3].elements.length}
+                            </h1>
                             <h2 className="text-2xl h-[100px]">
                                 LÁMPÁS ’92 ALAPÍTVÁNY
                             </h2>
