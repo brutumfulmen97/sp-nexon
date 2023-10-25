@@ -104,30 +104,33 @@ const initialParents = [
     },
 ];
 
+const initialShelves = [
+    {
+        id: "A",
+        elements: [],
+    },
+    {
+        id: "B",
+        elements: [],
+    },
+    {
+        id: "C",
+        elements: [],
+    },
+    {
+        id: "D",
+        elements: [],
+    },
+];
+
 type OverType = {
     current: any;
 };
 
 export default function Home() {
     const [parents, setParents] = useState(initialParents);
-    const [shelfs, setShelfs] = useState([
-        {
-            id: "A",
-            elements: [],
-        },
-        {
-            id: "B",
-            elements: [],
-        },
-        {
-            id: "C",
-            elements: [],
-        },
-        {
-            id: "D",
-            elements: [],
-        },
-    ]);
+    //TODO: derived state from parents
+    const [shelves, setShelves] = useState(initialShelves);
     const overRef: OverType = useRef();
     const idRef = useRef();
 
@@ -151,33 +154,6 @@ export default function Home() {
                 else return item;
             });
         });
-
-        // setShelfs((prev: any) => {
-        //     console.log(id);
-        //     const element = draggableContent.find((el) => el.props.id === id);
-        //     return prev.map((shelf: any) => {
-        //         if (!over) {
-        //             return {
-        //                 ...shelf,
-        //                 elements: shelf.elements.filter(
-        //                     (el: any) => el.props.id !== id
-        //                 ),
-        //             };
-        //         } else if (shelf.id === over.id) {
-        //             return {
-        //                 ...shelf,
-        //                 elements: [...shelf.elements, element],
-        //             };
-        //         } else {
-        //             return {
-        //                 ...shelf,
-        //                 elements: shelf.elements.filter(
-        //                     (el: any) => el.props.id !== id
-        //                 ),
-        //             };
-        //         }
-        //     });
-        // });
     }
 
     const draggableContent = [
@@ -378,7 +354,7 @@ export default function Home() {
         const element = draggableContent.find((el) => el.props.id === id);
         if (!element) return;
 
-        setShelfs((prev: any) => {
+        setShelves((prev: any) => {
             return prev.map((shelf: any) => {
                 if (!overRef.current) {
                     return {
@@ -413,6 +389,8 @@ export default function Home() {
             });
         });
     }, [parents]);
+
+    console.log(shelves);
 
     return (
         <>
@@ -497,7 +475,7 @@ export default function Home() {
                                             ? draggableContent[idx]
                                             : null;
                                     })} */}
-                                {shelfs[0].elements.map((el: any) => el)}
+                                {shelves[0].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
@@ -506,7 +484,7 @@ export default function Home() {
                                 alt="polica"
                             />
                             <h1 className="text-8xl text-white">
-                                {shelfs[0].elements.length}
+                                {shelves[0].elements.length}
                             </h1>
                             <h2 className="text-2xl h-[100px]">
                                 SZENT ISTVÁN KIRÁLY ZENEI ALAPÍTVÁNY
@@ -534,7 +512,7 @@ export default function Home() {
                                         ? draggableContent[idx]
                                         : null;
                                 })} */}
-                                {shelfs[1].elements.map((el: any) => el)}
+                                {shelves[1].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
@@ -543,7 +521,7 @@ export default function Home() {
                                 alt="polica"
                             />
                             <h1 className="text-8xl text-white">
-                                {shelfs[1].elements.length}
+                                {shelves[1].elements.length}
                             </h1>
                             <h2 className="text-2xl h-[100px]">
                                 AUTIZMUS ALAPÍTVÁNY
@@ -571,7 +549,7 @@ export default function Home() {
                                         ? draggableContent[idx]
                                         : null;
                                 })} */}
-                                {shelfs[2].elements.map((el: any) => el)}
+                                {shelves[2].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
@@ -580,7 +558,7 @@ export default function Home() {
                                 alt="polica"
                             />
                             <h1 className="text-8xl text-white">
-                                {shelfs[2].elements.length}
+                                {shelves[2].elements.length}
                             </h1>
                             <h2 className="text-2xl h-[100px]">
                                 ÉLELMISZERBANK EGYESÜLETY
@@ -608,7 +586,7 @@ export default function Home() {
                                         ? draggableContent[idx]
                                         : null;
                                 })} */}
-                                {shelfs[3].elements.map((el: any) => el)}
+                                {shelves[3].elements.map((el: any) => el)}
                             </div>
                             <Image
                                 src="/shelf.png"
@@ -617,7 +595,7 @@ export default function Home() {
                                 alt="polica"
                             />
                             <h1 className="text-8xl text-white">
-                                {shelfs[3].elements.length}
+                                {shelves[3].elements.length}
                             </h1>
                             <h2 className="text-2xl h-[100px]">
                                 LÁMPÁS ’92 ALAPÍTVÁNY
@@ -641,7 +619,10 @@ export default function Home() {
                 <div className="w-full flex justify-center mt-8 mb-24">
                     <button
                         className="py-2 px-8 bg-red-600 hover:bg-red-500 text-white rounded-full border-4 border-white"
-                        onClick={() => setParents(initialParents)}
+                        onClick={() => {
+                            setParents(initialParents);
+                            setShelves(initialShelves);
+                        }}
                     >
                         VISSZAÁLLÍTÁS
                     </button>
