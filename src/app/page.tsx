@@ -104,6 +104,10 @@ const initialParents = [
     },
 ];
 
+type OverType = {
+    current: any;
+};
+
 export default function Home() {
     const [parents, setParents] = useState(initialParents);
     const [shelfs, setShelfs] = useState([
@@ -124,7 +128,7 @@ export default function Home() {
             elements: [],
         },
     ]);
-    const overRef = useRef();
+    const overRef: OverType = useRef();
     const idRef = useRef();
 
     function handleDragEnd(event: any) {
@@ -375,7 +379,7 @@ export default function Home() {
         if (!element) return;
 
         setShelfs((prev: any) => {
-            return prev.map((shelf) => {
+            return prev.map((shelf: any) => {
                 if (!overRef.current) {
                     return {
                         ...shelf,
