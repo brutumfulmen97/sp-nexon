@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Draggable from "@/components/Draggable";
 import Dropabble from "@/components/Droppable";
+import Sweater from "@/components/Sweater";
+import Shelf from "@/components/Shelf";
 
 const initialParents = [
     {
@@ -89,6 +91,20 @@ const initialShelves = [
     },
 ];
 
+const links = [
+    "www.szentistvanzene.hu",
+    "www.autizmus.hu",
+    "www.elelmiszerbank.hu",
+    "www.lampas92.hu",
+];
+
+const titles = [
+    "Szent István Zenei Alapítvány",
+    "Autizmus Alapítvány",
+    "Élelmiszerbank",
+    "Lámpás 92 Alapítvány",
+];
+
 type OverType = {
     current: any;
 };
@@ -125,200 +141,106 @@ export default function Home() {
 
     const draggableContent = [
         <Draggable id="sweater1" key="sweater1">
-            <Image
-                src={
-                    parents[0].isSorted ? "/sweater-white.png" : "/sweater1.png"
-                }
-                width={200}
-                height={200}
-                style={{
-                    width: "100%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[0].isSorted}
+                imgBig={"/sweater-blue.png"}
+                imgSmall={"/sweater1.png"}
+                width={"100%"}
             />
         </Draggable>,
         <Draggable id="sweater2" key="sweater2">
-            <Image
-                src={
-                    parents[1].isSorted
-                        ? "/sweater-darkgreen.png"
-                        : "/sweater2.png"
-                }
-                width={200}
-                height={200}
-                style={{
-                    width: parents[1].isSorted ? "100%" : "70%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[1].isSorted}
+                imgBig={"/sweater-darkgreen.png"}
+                imgSmall={"/sweater2.png"}
+                width={"70%"}
             />
         </Draggable>,
         <Draggable id="sweater3" key="sweater3">
-            <Image
-                src={
-                    parents[2].isSorted
-                        ? "/sweater-lightblue.png"
-                        : "/sweater3.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: "100%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[2].isSorted}
+                imgBig={"/sweater-lightblue.png"}
+                imgSmall={"/sweater3.png"}
+                width={"100%"}
             />
         </Draggable>,
         <Draggable id="sweater4" key="sweater4">
-            {" "}
-            <Image
-                src={parents[3].isSorted ? "/sweater-red.png" : "/sweater4.png"}
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[3].isSorted ? "100%" : "95%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[3].isSorted}
+                imgBig={"/sweater-red.png"}
+                imgSmall={"/sweater4.png"}
+                width={"95%"}
             />
         </Draggable>,
         <Draggable id="sweater5" key="sweater5">
-            {" "}
-            <Image
-                src={
-                    parents[4].isSorted
-                        ? "/sweater-green2.png"
-                        : "/sweater5.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[4].isSorted ? "100%" : "95%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[4].isSorted}
+                imgBig={"/sweater-green2.png"}
+                imgSmall={"/sweater5.png"}
+                width={"95%"}
             />
         </Draggable>,
         <Draggable id="sweater6" key="sweater6">
-            {" "}
-            <Image
-                src={
-                    parents[5].isSorted ? "/sweater-white.png" : "/sweater6.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[5].isSorted ? "100%" : "95%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[5].isSorted}
+                imgBig={"/sweater-white.png"}
+                imgSmall={"/sweater6.png"}
+                width={"95%"}
             />
         </Draggable>,
         <Draggable id="sweater7" key="sweater7">
-            {" "}
-            <Image
-                src={
-                    parents[6].isSorted ? "/sweater-beige.png" : "/sweater7.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[6].isSorted ? "100%" : "85%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[6].isSorted}
+                imgBig={"/sweater-beige.png"}
+                imgSmall={"/sweater7.png"}
+                width={"85%"}
             />
         </Draggable>,
         <Draggable id="sweater8" key="sweater8">
-            <Image
-                src={
-                    parents[7].isSorted
-                        ? "/sweater-lightgreen.png"
-                        : "/sweater8.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[7].isSorted ? "100%" : "90%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[7].isSorted}
+                imgBig={"/sweater-lightgreen.png"}
+                imgSmall={"/sweater8.png"}
+                width={"90%"}
             />
         </Draggable>,
         <Draggable id="sweater9" key="sweater9">
-            {" "}
-            <Image
-                src={
-                    parents[8].isSorted
-                        ? "/sweater-maroon.png"
-                        : "/sweater9.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[8].isSorted ? "100%" : "70%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[8].isSorted}
+                imgBig={"/sweater-maroon.png"}
+                imgSmall={"/sweater9.png"}
+                width={"70%"}
             />
         </Draggable>,
         <Draggable id="sweater10" key="sweater10">
-            {" "}
-            <Image
-                src={
-                    parents[9].isSorted
-                        ? "/sweater-green2.png"
-                        : "/sweater10.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[9].isSorted ? "100%" : "85%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[9].isSorted}
+                imgBig={"/sweater-green2.png"}
+                imgSmall={"/sweater10.png"}
+                width={"85%"}
             />
         </Draggable>,
         <Draggable id="sweater11" key="sweater11">
-            {" "}
-            <Image
-                src={
-                    parents[10].isSorted
-                        ? "/sweater-blue.png"
-                        : "/sweater11.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: parents[10].isSorted ? "100%" : "85%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[10].isSorted}
+                imgBig={"/sweater-blue.png"}
+                imgSmall={"/sweater11.png"}
+                width={"85%"}
             />
         </Draggable>,
         <Draggable id="sweater12" key="sweater12">
-            {" "}
-            <Image
-                src={
-                    parents[11].isSorted
-                        ? "/sweater-lightblue.png"
-                        : "/sweater12.png"
-                }
-                width={1000}
-                height={1000}
-                style={{
-                    width: "100%",
-                    height: "auto",
-                }}
-                alt="sweater"
+            <Sweater
+                isSorted={parents[11].isSorted}
+                imgBig={"/sweater-lightblue.png"}
+                imgSmall={"/sweater12.png"}
+                width={"100%"}
             />
         </Draggable>,
     ];
 
     useEffect(() => {
-        const reseted = parents.every((parent) => parent.parent === null);
-        if (reseted) {
+        const reset = parents.every((parent) => parent.parent === null);
+        if (reset) {
             setShelves(initialShelves);
             return;
         }
@@ -361,8 +283,6 @@ export default function Home() {
             });
         });
     }, [parents]);
-
-    console.log(shelves);
 
     return (
         <>
@@ -438,154 +358,17 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+
                 <div className="w-full flex flex-col lg:flex-row justify-center items-start md:text-center ">
-                    <Dropabble id="A" className="w-full">
-                        <div className="flex  w-full   flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
-                                {/* {parents.map((parent, idx) => {
-                                        return parent.parent === "A"
-                                            ? draggableContent[idx]
-                                            : null;
-                                    })} */}
-                                {shelves[0].elements.map((el: any) => el)}
-                            </div>
-                            <Image
-                                src="/shelf.png"
-                                width={1000}
-                                height={500}
-                                alt="polica"
+                    {["A", "B", "C", "D"].map((el, idx) => (
+                        <Dropabble id={el} className="w-full" key={el}>
+                            <Shelf
+                                elements={shelves[idx].elements}
+                                title={titles[idx]}
+                                link={links[idx]}
                             />
-                            <h1 className="text-8xl text-white">
-                                {shelves[0].elements.length}
-                            </h1>
-                            <h2 className="text-2xl h-[100px]">
-                                SZENT ISTVÁN KIRÁLY ZENEI ALAPÍTVÁNY
-                            </h2>
-                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
-                                <Image
-                                    className="absolute left-0 top-[-4px]"
-                                    src="/infoIcon.png"
-                                    width={40}
-                                    height={40}
-                                    alt="info icon"
-                                />
-                                <Link href="#" className="hidden lg:block">
-                                    www.szentistvanzene.hu
-                                </Link>
-                            </div>
-                        </div>
-                    </Dropabble>
-
-                    <Dropabble id="B" className="w-full">
-                        <div className="flex w-full    flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
-                                {/* {parents.map((parent, idx) => {
-                                    return parent.parent === "B"
-                                        ? draggableContent[idx]
-                                        : null;
-                                })} */}
-                                {shelves[1].elements.map((el: any) => el)}
-                            </div>
-                            <Image
-                                src="/shelf.png"
-                                width={500}
-                                height={500}
-                                alt="polica"
-                            />
-                            <h1 className="text-8xl text-white">
-                                {shelves[1].elements.length}
-                            </h1>
-                            <h2 className="text-2xl h-[100px]">
-                                AUTIZMUS ALAPÍTVÁNY
-                            </h2>
-                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
-                                <Image
-                                    className="absolute left-0 top-[-4px]"
-                                    src="/infoIcon.png"
-                                    width={40}
-                                    height={40}
-                                    alt="info icon"
-                                />
-                                <Link href="#" className="hidden lg:block">
-                                    www.autizmus.hu
-                                </Link>
-                            </div>
-                        </div>
-                    </Dropabble>
-
-                    <Dropabble id="C" className="w-full">
-                        <div className="flex w-full   flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
-                                {/* {parents.map((parent, idx) => {
-                                    return parent.parent === "C"
-                                        ? draggableContent[idx]
-                                        : null;
-                                })} */}
-                                {shelves[2].elements.map((el: any) => el)}
-                            </div>
-                            <Image
-                                src="/shelf.png"
-                                width={1000}
-                                height={500}
-                                alt="polica"
-                            />
-                            <h1 className="text-8xl text-white">
-                                {shelves[2].elements.length}
-                            </h1>
-                            <h2 className="text-2xl h-[100px]">
-                                ÉLELMISZERBANK EGYESÜLETY
-                            </h2>
-                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
-                                <Image
-                                    className="absolute left-0 top-[-4px]"
-                                    src="/infoIcon.png"
-                                    width={40}
-                                    height={40}
-                                    alt="info icon"
-                                />
-                                <Link href="#" className="hidden lg:block">
-                                    www.elelmiszerbank.hu
-                                </Link>
-                            </div>
-                        </div>
-                    </Dropabble>
-
-                    <Dropabble id="D" className="w-full">
-                        <div className="flex w-full    flex-row-reverse lg:flex-col items-center justify-center gap-4">
-                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse justify-start">
-                                {/* {parents.map((parent, idx) => {
-                                    return parent.parent === "D"
-                                        ? draggableContent[idx]
-                                        : null;
-                                })} */}
-                                {shelves[3].elements.map((el: any) => el)}
-                            </div>
-                            <Image
-                                src="/shelf.png"
-                                width={1000}
-                                height={500}
-                                alt="polica"
-                            />
-                            <h1 className="text-8xl text-white">
-                                {shelves[3].elements.length}
-                            </h1>
-                            <h2 className="text-2xl h-[100px]">
-                                LÁMPÁS ’92 ALAPÍTVÁNY
-                            </h2>
-                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
-                                <Image
-                                    className="absolute left-0 top-[-4px]"
-                                    src="/infoIcon.png"
-                                    width={40}
-                                    height={40}
-                                    alt="info icon"
-                                />
-                                <Link href="#" className="hidden lg:block">
-                                    www.lampas92.hu
-                                </Link>
-                            </div>
-                        </div>
-                    </Dropabble>
+                        </Dropabble>
+                    ))}
                 </div>
 
                 <div className="w-full flex justify-center mt-8 mb-24">
