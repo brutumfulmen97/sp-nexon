@@ -13,3 +13,7 @@
 body {
     background: #bdddf2;
 }
+
+img {
+    max-width: 100%;
+}

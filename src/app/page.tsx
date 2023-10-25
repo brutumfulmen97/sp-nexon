@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import Image from "next/image";
 import Link from "next/link";
@@ -105,7 +105,6 @@ const initialParents = [
 ];
 
 export default function Home() {
-    const droppables = ["A", "B", "C", "D"];
     const [parents, setParents] = useState(initialParents);
     const [shelfs, setShelfs] = useState([
         {
@@ -125,11 +124,18 @@ export default function Home() {
             elements: [],
         },
     ]);
+    const overRef = useRef();
+    const idRef = useRef();
+
     function handleDragEnd(event: any) {
         const {
             over,
             active: { id },
         } = event;
+
+        overRef.current = over;
+        idRef.current = id;
+
         setParents((prev) => {
             return prev.map((item) => {
                 if (item.id === id)
@@ -142,37 +148,33 @@ export default function Home() {
             });
         });
 
-        console.log(parents);
-
-        setShelfs((prev: any) => {
-            const element = draggableContent.find((el) => el.props.id === id);
-            return prev.map((shelf: any) => {
-                console.log(shelf.id, id);
-                if (!over) {
-                    return {
-                        ...shelf,
-                        elements: shelf.elements.filter(
-                            (el: any) => el.props.id !== id
-                        ),
-                    };
-                } else if (shelf.id === over.id) {
-                    return {
-                        ...shelf,
-                        elements: [...shelf.elements, element],
-                    };
-                } else {
-                    return {
-                        ...shelf,
-                        elements: shelf.elements.filter(
-                            (el: any) => el.props.id !== id
-                        ),
-                    };
-                }
-            });
-        });
+        // setShelfs((prev: any) => {
+        //     console.log(id);
+        //     const element = draggableContent.find((el) => el.props.id === id);
+        //     return prev.map((shelf: any) => {
+        //         if (!over) {
+        //             return {
+        //                 ...shelf,
+        //                 elements: shelf.elements.filter(
+        //                     (el: any) => el.props.id !== id
+        //                 ),
+        //             };
+        //         } else if (shelf.id === over.id) {
+        //             return {
+        //                 ...shelf,
+        //                 elements: [...shelf.elements, element],
+        //             };
+        //         } else {
+        //             return {
+        //                 ...shelf,
+        //                 elements: shelf.elements.filter(
+        //                     (el: any) => el.props.id !== id
+        //                 ),
+        //             };
+        //         }
+        //     });
+        // });
     }
-
-    console.log(shelfs);
 
     const draggableContent = [
         <Draggable id="sweater1" key="sweater1">
@@ -366,6 +368,47 @@ export default function Home() {
             />
         </Draggable>,
     ];
+
+    useEffect(() => {
+        const id = idRef.current;
+        const element = draggableContent.find((el) => el.props.id === id);
+        if (!element) return;
+
+        setShelfs((prev: any) => {
+            return prev.map((shelf) => {
+                if (!overRef.current) {
+                    return {
+                        ...shelf,
+                        elements: shelf.elements.filter(
+                            (el: any) => el.props.id !== id
+                        ),
+                    };
+                } else if (shelf.id === overRef.current.id) {
+                    let isAlreadyIn = false;
+                    shelf.elements.forEach((el: any) => {
+                        if (el.props.id === id) isAlreadyIn = true;
+                    });
+                    if (!isAlreadyIn) {
+                        return {
+                            ...shelf,
+                            elements: [...shelf.elements, element],
+                        };
+                    } else {
+                        return {
+                            ...shelf,
+                        };
+                    }
+                } else {
+                    return {
+                        ...shelf,
+                        elements: shelf.elements.filter(
+                            (el: any) => el.props.id !== id
+                        ),
+                    };
+                }
+            });
+        });
+    }, [parents]);
 
     return (
         <>
