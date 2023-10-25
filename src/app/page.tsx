@@ -22,7 +22,11 @@ function Draggable(props: { id: string; children: React.ReactNode }) {
     );
 }
 
-function Dropabble(props: { id: string; children: React.ReactNode }) {
+function Dropabble(props: {
+    id: string;
+    children: React.ReactNode;
+    className: string;
+}) {
     const { isOver, setNodeRef } = useDroppable({
         id: props.id,
     });
@@ -31,7 +35,7 @@ function Dropabble(props: { id: string; children: React.ReactNode }) {
     };
 
     return (
-        <div ref={setNodeRef} style={style}>
+        <div ref={setNodeRef} style={style} className={props.className}>
             {props.children}
         </div>
     );
@@ -320,7 +324,7 @@ export default function Home() {
     return (
         <>
             <DndContext onDragEnd={handleDragEnd}>
-                <div className="relative mt-12 px-[2%] mb-12">
+                <div className="relative mt-12 px-[2%] mb-2">
                     <Image
                         src="/coathanger2.png"
                         alt="coat hanger"
@@ -391,10 +395,10 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-2 flex-col lg:flex-row justify-center items-center md:text-center">
-                    <div className="flex  w-full h-[500px] p-2 flex-row-reverse lg:flex-col items-center justify-between">
-                        <Dropabble id="A">
-                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
+                <div className="w-full flex flex-col lg:flex-row justify-center items-start md:text-center ">
+                    <Dropabble id="A" className="w-full">
+                        <div className="flex  w-full   flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
                                 <div className="w-full">
                                     {parents.map((parent, idx) => {
                                         return parent.parent === "A"
@@ -403,124 +407,134 @@ export default function Home() {
                                     })}
                                 </div>
                             </div>
-                        </Dropabble>
-                        <Image
-                            src="/shelf.png"
-                            width={300}
-                            height={500}
-                            alt="polica"
-                        />
-                        <h1 className="text-8xl text-white">0</h1>
-                        <h2 className="text-3xl">
-                            SZENT ISTVÁN KIRÁLY ZENEI ALAPÍTVÁNY
-                        </h2>
-                        <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
                             <Image
-                                className="absolute left-0 top-[-4px]"
-                                src="/infoIcon.png"
-                                width={40}
-                                height={40}
-                                alt="info icon"
+                                src="/shelf.png"
+                                width={1000}
+                                height={500}
+                                alt="polica"
                             />
-                            <Link href="#" className="hidden lg:block">
-                                www.szentistvanzene.hu
-                            </Link>
+                            <h1 className="text-8xl text-white">0</h1>
+                            <h2 className="text-2xl h-[100px]">
+                                SZENT ISTVÁN KIRÁLY ZENEI ALAPÍTVÁNY
+                            </h2>
+                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
+                                <Image
+                                    className="absolute left-0 top-[-4px]"
+                                    src="/infoIcon.png"
+                                    width={40}
+                                    height={40}
+                                    alt="info icon"
+                                />
+                                <Link href="#" className="hidden lg:block">
+                                    www.szentistvanzene.hu
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
-                        <Dropabble id="B">
-                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
+                    </Dropabble>
+
+                    <Dropabble id="B" className="w-full">
+                        <div className="flex w-full    flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "B"
                                         ? draggableContent[idx]
                                         : null;
                                 })}
                             </div>
-                        </Dropabble>
-                        <Image
-                            src="/shelf.png"
-                            width={300}
-                            height={500}
-                            alt="polica"
-                        />
-                        <h1 className="text-8xl text-white">0</h1>
-                        <h2 className="text-3xl">AUTIZMUS ALAPÍTVÁNY</h2>
-                        <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
                             <Image
-                                className="absolute left-0 top-[-4px]"
-                                src="/infoIcon.png"
-                                width={40}
-                                height={40}
-                                alt="info icon"
+                                src="/shelf.png"
+                                width={500}
+                                height={500}
+                                alt="polica"
                             />
-                            <Link href="#" className="hidden lg:block">
-                                www.autizmus.hu
-                            </Link>
+                            <h1 className="text-8xl text-white">0</h1>
+                            <h2 className="text-2xl h-[100px]">
+                                AUTIZMUS ALAPÍTVÁNY
+                            </h2>
+                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
+                                <Image
+                                    className="absolute left-0 top-[-4px]"
+                                    src="/infoIcon.png"
+                                    width={40}
+                                    height={40}
+                                    alt="info icon"
+                                />
+                                <Link href="#" className="hidden lg:block">
+                                    www.autizmus.hu
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
-                        <Dropabble id="C">
-                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
+                    </Dropabble>
+
+                    <Dropabble id="C" className="w-full">
+                        <div className="flex w-full   flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "C"
                                         ? draggableContent[idx]
                                         : null;
                                 })}
                             </div>
-                        </Dropabble>
-                        <Image
-                            src="/shelf.png"
-                            width={300}
-                            height={500}
-                            alt="polica"
-                        />
-                        <h1 className="text-8xl text-white">0</h1>
-                        <h2 className="text-3xl">ÉLELMISZERBANK EGYESÜLETY</h2>
-                        <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
                             <Image
-                                className="absolute left-0 top-[-4px]"
-                                src="/infoIcon.png"
-                                width={40}
-                                height={40}
-                                alt="info icon"
+                                src="/shelf.png"
+                                width={1000}
+                                height={500}
+                                alt="polica"
                             />
-                            <Link href="#" className="hidden lg:block">
-                                www.elelmiszerbank.hu
-                            </Link>
+                            <h1 className="text-8xl text-white">0</h1>
+                            <h2 className="text-2xl h-[100px]">
+                                ÉLELMISZERBANK EGYESÜLETY
+                            </h2>
+                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
+                                <Image
+                                    className="absolute left-0 top-[-4px]"
+                                    src="/infoIcon.png"
+                                    width={40}
+                                    height={40}
+                                    alt="info icon"
+                                />
+                                <Link href="#" className="hidden lg:block">
+                                    www.elelmiszerbank.hu
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex w-full h-[500px] p-2  flex-col items-center justify-between">
-                        <Dropabble id="D">
-                            <div className="w-[150px] h-[150px] bg-green-200  flex flex-col-reverse">
+                    </Dropabble>
+
+                    <Dropabble id="D" className="w-full">
+                        <div className="flex w-full    flex-row-reverse lg:flex-col items-center justify-center gap-4">
+                            <div className="w-1/3 max-w-[250px] h-[200px] -mb-6 mr-24  flex flex-col-reverse">
                                 {parents.map((parent, idx) => {
                                     return parent.parent === "D"
                                         ? draggableContent[idx]
                                         : null;
                                 })}
                             </div>
-                        </Dropabble>
-                        <Image
-                            src="/shelf.png"
-                            width={300}
-                            height={500}
-                            alt="polica"
-                        />
-                        <h1 className="text-8xl text-white">0</h1>
-                        <h2 className="text-3xl">LÁMPÁS ’92 ALAPÍTVÁNY</h2>
-                        <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1">
                             <Image
-                                className="absolute left-0 top-[-4px]"
-                                src="/infoIcon.png"
-                                width={40}
-                                height={40}
-                                alt="info icon"
+                                src="/shelf.png"
+                                width={1000}
+                                height={500}
+                                alt="polica"
                             />
-                            <Link href="#" className="hidden lg:block">
-                                www.lampas92.hu
-                            </Link>
+                            <h1 className="text-8xl text-white">0</h1>
+                            <h2 className="text-2xl h-[100px]">
+                                LÁMPÁS ’92 ALAPÍTVÁNY
+                            </h2>
+                            <div className="bg-blue-900 text-white relative pl-12 rounded-full pr-4 py-1 mt-2">
+                                <Image
+                                    className="absolute left-0 top-[-4px]"
+                                    src="/infoIcon.png"
+                                    width={40}
+                                    height={40}
+                                    alt="info icon"
+                                />
+                                <Link href="#" className="hidden lg:block">
+                                    www.lampas92.hu
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                    </Dropabble>
                 </div>
+
                 <div className="w-full flex justify-center mt-8 mb-24">
                     <button
                         className="py-2 px-8 bg-red-600 hover:bg-red-500 text-white rounded-full border-4 border-white"
