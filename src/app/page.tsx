@@ -100,7 +100,7 @@ const links = [
 const titles = [
     "Szent István Zenei Alapítvány",
     "Autizmus Alapítvány",
-    "Élelmiszerbank",
+    "Élelmiszerbank egyesület",
     "Lámpás 92 Alapítvány",
 ];
 
