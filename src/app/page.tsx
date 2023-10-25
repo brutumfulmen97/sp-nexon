@@ -1,45 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
 import Image from "next/image";
 import Link from "next/link";
-
-function Draggable(props: { id: string; children: React.ReactNode }) {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: props.id,
-    });
-    const style = transform
-        ? {
-              transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-          }
-        : undefined;
-
-    return (
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-            {props.children}
-        </div>
-    );
-}
-
-function Dropabble(props: {
-    id: string;
-    children: React.ReactNode;
-    className: string;
-}) {
-    const { isOver, setNodeRef } = useDroppable({
-        id: props.id,
-    });
-    const style = {
-        color: isOver ? "green" : undefined,
-    };
-
-    return (
-        <div ref={setNodeRef} style={style} className={props.className}>
-            {props.children}
-        </div>
-    );
-}
+import Draggable from "@/components/Draggable";
+import Dropabble from "@/components/Droppable";
 
 const initialParents = [
     {
@@ -129,7 +95,6 @@ type OverType = {
 
 export default function Home() {
     const [parents, setParents] = useState(initialParents);
-    //TODO: derived state from parents
     const [shelves, setShelves] = useState(initialShelves);
     const overRef: OverType = useRef();
     const idRef = useRef();
@@ -145,13 +110,15 @@ export default function Home() {
 
         setParents((prev) => {
             return prev.map((item) => {
-                if (item.id === id)
+                if (item.id === id) {
                     return {
                         ...item,
                         parent: over ? over.id : null,
                         isSorted: over ? true : false,
                     };
-                else return item;
+                } else {
+                    return item;
+                }
             });
         });
     }
@@ -621,7 +588,6 @@ export default function Home() {
                         className="py-2 px-8 bg-red-600 hover:bg-red-500 text-white rounded-full border-4 border-white"
                         onClick={() => {
                             setParents(initialParents);
-                            setShelves(initialShelves);
                         }}
                     >
                         VISSZAÁLLÍTÁS
