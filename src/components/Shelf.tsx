@@ -24,12 +24,6 @@ export default function Shelf({
         <div className="flex  w-full   flex-row-reverse lg:flex-col items-center justify-center gap-4 ">
             {popupOpen && (
                 <div className="z-10 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[50vw] min-h-[50vh] bg-[#1c3c51ed]  rounded-lg p-12 grid grid-cols-3 gap-4">
-                    <div
-                        className="absolute right-2 top-2 text-white cursor-pointer"
-                        onClick={() => setPopupOpen(false)}
-                    >
-                        <XCircle />
-                    </div>
                     {parents.map((el: any) => {
                         if (el.parent === id) {
                             return (
@@ -63,6 +57,7 @@ export default function Shelf({
             <h1
                 className="text-8xl text-white"
                 onMouseOver={() => setPopupOpen(true)}
+                onMouseLeave={() => setPopupOpen(false)}
             >
                 {elements.length}
             </h1>
