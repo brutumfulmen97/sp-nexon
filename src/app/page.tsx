@@ -362,6 +362,8 @@ export default function Home() {
                     {["A", "B", "C", "D"].map((el, idx) => (
                         <Droppable id={el} className="w-full" key={el}>
                             <Shelf
+                                id={el}
+                                parents={parents}
                                 elements={shelves[idx].elements}
                                 title={titles[idx]}
                                 link={links[idx]}
@@ -373,6 +375,13 @@ export default function Home() {
                 <div className="w-full flex justify-center mt-8 mb-24">
                     <button
                         className="py-2 px-8 bg-red-600 hover:bg-red-500 text-white rounded-full border-4 border-white"
+                        style={{
+                            visibility: parents.some(
+                                (parent) => parent.parent !== null
+                            )
+                                ? "visible"
+                                : "hidden",
+                        }}
                         onClick={() => {
                             setParents(initialParents);
                         }}

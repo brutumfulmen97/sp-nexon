@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 type SweaterProps = {
-    isSorted: boolean;
+    isSorted?: boolean;
     imgBig: string;
     imgSmall: string;
-    width: string;
+    width?: string;
 };
 
 export default function Sweater({
@@ -14,11 +14,11 @@ export default function Sweater({
     width,
 }: SweaterProps) {
     const randomValue = Math.round(Math.random());
-    console.log(randomValue);
+
     return (
         <>
             <Image
-                src={isSorted ? imgSmall : imgBig}
+                src={!isSorted ? imgBig : imgSmall}
                 width={200}
                 height={200}
                 style={{
