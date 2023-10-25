@@ -317,6 +317,11 @@ export default function Home() {
     ];
 
     useEffect(() => {
+        const reseted = parents.every((parent) => parent.parent === null);
+        if (reseted) {
+            setShelves(initialShelves);
+            return;
+        }
         const id = idRef.current;
         const element = draggableContent.find((el) => el.props.id === id);
         if (!element) return;
