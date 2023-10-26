@@ -32,7 +32,7 @@ type ShelfType = {
     elements: React.ReactNode[];
 };
 
-export const initialShelves: ShelfType[] = [
+const initialShelves: ShelfType[] = [
     {
         id: "A",
         elements: [],
