@@ -59,6 +59,26 @@ export default function Home() {
     const overRef: OverType = useRef();
     const idRef = useRef();
 
+    function handleSubmit() {
+        const A = shelves[0].elements.length;
+        const B = shelves[1].elements.length;
+        const C = shelves[2].elements.length;
+        const D = shelves[3].elements.length;
+
+        fetch("/api/sheets", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                A,
+                B,
+                C,
+                D,
+            }),
+        });
+    }
+
     function handleDragEnd(event: any) {
         const {
             over,
@@ -247,7 +267,10 @@ export default function Home() {
                     />
                     {allSweatersSorted && (
                         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-20">
-                            <button className="bg-[#0d4067] hover:bg-[#196996] cursor-pointer text-white px-4 py-1 sm:px-6 sm:py-2 text-l sm:text-2xl md:text-4xl font-bold rounded-full border-2 sm:border-4 drop-shadow-button ">
+                            <button
+                                onClick={() => handleSubmit()}
+                                className="bg-[#0d4067] hover:bg-[#196996] cursor-pointer text-white px-4 py-1 sm:px-6 sm:py-2 text-l sm:text-2xl md:text-4xl font-bold rounded-full border-2 sm:border-4 drop-shadow-button "
+                            >
                                 ELKÜLDÖM
                             </button>
                         </div>

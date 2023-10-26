@@ -18,9 +18,20 @@ export default function Statistics() {
     return (
         <div>
             <h1>Statistics</h1>
-            {data.map((item, index) => (
-                <div key={index}>{item}</div>
-            ))}
+            {data.map((item: any, index) => {
+                console.log(item);
+                return (
+                    <div key={index} className="p-4">
+                        {item.map((row: any, idx: number) => {
+                            return (
+                                <div key={idx} className="p-2">
+                                    {row}
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
+            })}
         </div>
     );
 }
