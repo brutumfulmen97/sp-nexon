@@ -11,10 +11,8 @@ const config: Config = {
             screens: {
                 mobile: "450px",
             },
-            backgroundImage: {
-                "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-                "gradient-conic":
-                    "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+            dropShadow: {
+                button: "0px 5px 0px #77919b",
             },
         },
     },

@@ -8,6 +8,7 @@ import Droppable from "@/components/Droppable";
 import Sweater from "@/components/Sweater";
 import Shelf from "@/components/Shelf";
 import { useSweaterStore, initialParents } from "@/store/store";
+import Header from "@/components/Header";
 
 const links = [
     "www.szentistvanzene.hu",
@@ -233,6 +234,8 @@ export default function Home() {
 
     return (
         <>
+            <Header />
+
             <DndContext onDragEnd={handleDragEnd}>
                 <div className="relative mt-12 px-[2%] mb-2">
                     <Image
@@ -244,7 +247,7 @@ export default function Home() {
                     />
                     {allSweatersSorted && (
                         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-20">
-                            <button className="bg-[#0d4067] hover:bg-[#2f4b61] cursor-pointer text-white px-4 py-1 sm:px-6 sm:py-2 text-l sm:text-2xl md:text-4xl font-bold rounded-full border-2 sm:border-4 shadow ">
+                            <button className="bg-[#0d4067] hover:bg-[#196996] cursor-pointer text-white px-4 py-1 sm:px-6 sm:py-2 text-l sm:text-2xl md:text-4xl font-bold rounded-full border-2 sm:border-4 drop-shadow-button ">
                                 ELKÜLDÖM
                             </button>
                         </div>
