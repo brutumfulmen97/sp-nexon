@@ -21,7 +21,7 @@ export default function Shelf({ id, elements, title, link }: ShelfProps) {
     return (
         <div className="flex  w-full flex-row-reverse lg:flex-col items-center justify-between lg:gap-4 ">
             {sweaterPopupOpen && (
-                <div className="z-20 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[90vw] md:w-[50vw]  min-h-[70vh] md:min-h-[50vh] bg-[#1c3c51ed]   rounded-lg p-12 grid grid-cols-3 gap-4">
+                <div className="z-20 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[90vw] md:w-[50vw]  min-h-[70vh] md:min-h-[50vh] bg-[#06283ed9]   rounded-lg p-12 grid grid-cols-3 gap-4">
                     <div
                         className="absolute top-2 right-2 text-white cursor-pointer"
                         onClick={() => {
@@ -53,7 +53,7 @@ export default function Shelf({ id, elements, title, link }: ShelfProps) {
                 </div>
             )}
             {infoPopupOpen && (
-                <div className="z-10 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[90vw] min-h-[50vh] md:min-h-[30vh] bg-[#1c3c51ed]   rounded-lg p-12 grid place-content-center gap-4">
+                <div className="z-10 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[90vw] min-h-[50vh] md:min-h-[30vh] bg-[#06283ed9]   rounded-lg p-12 grid place-content-center gap-4">
                     <div
                         className="absolute top-2 right-2 text-white cursor-pointer"
                         onClick={() => {
