@@ -7,88 +7,7 @@ import Draggable from "@/components/Draggable";
 import Droppable from "@/components/Droppable";
 import Sweater from "@/components/Sweater";
 import Shelf from "@/components/Shelf";
-
-const initialParents = [
-    {
-        parent: null,
-        id: "sweater1",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater2",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater3",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater4",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater5",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater6",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater7",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater8",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater9",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater10",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater11",
-        isSorted: false,
-    },
-    {
-        parent: null,
-        id: "sweater12",
-        isSorted: false,
-    },
-];
-
-const initialShelves = [
-    {
-        id: "A",
-        elements: [],
-    },
-    {
-        id: "B",
-        elements: [],
-    },
-    {
-        id: "C",
-        elements: [],
-    },
-    {
-        id: "D",
-        elements: [],
-    },
-];
+import { useSweaterStore, initialParents } from "@/store/store";
 
 const links = [
     "www.szentistvanzene.hu",
@@ -108,8 +27,32 @@ type OverType = {
     current: any;
 };
 
+type ShelfType = {
+    id: string;
+    elements: React.ReactNode[];
+};
+
+export const initialShelves: ShelfType[] = [
+    {
+        id: "A",
+        elements: [],
+    },
+    {
+        id: "B",
+        elements: [],
+    },
+    {
+        id: "C",
+        elements: [],
+    },
+    {
+        id: "D",
+        elements: [],
+    },
+];
+
 export default function Home() {
-    const [parents, setParents] = useState(initialParents);
+    const { parents, setParents } = useSweaterStore();
     const [shelves, setShelves] = useState(initialShelves);
 
     const overRef: OverType = useRef();
@@ -124,25 +67,25 @@ export default function Home() {
         overRef.current = over;
         idRef.current = id;
 
-        setParents((prev) => {
-            return prev.map((item) => {
-                if (item.id === id) {
-                    return {
-                        ...item,
-                        parent: over ? over.id : null,
-                        isSorted: over ? true : false,
-                    };
-                } else {
-                    return item;
-                }
-            });
+        const newParents = parents.map((item) => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    parent: over ? over.id : null,
+                    isSorted: over ? true : false,
+                };
+            } else {
+                return item;
+            }
         });
+
+        setParents(newParents);
     }
 
     const draggableContent = [
         <Draggable id="sweater1" key="sweater1">
             <Sweater
-                isSorted={parents[0].isSorted}
+                isSorted={parents[0]?.isSorted}
                 imgSmall={"/sweater-white.png"}
                 imgBig={"/sweater1.png"}
                 width={"100%"}
@@ -150,7 +93,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater2" key="sweater2">
             <Sweater
-                isSorted={parents[1].isSorted}
+                isSorted={parents[1]?.isSorted}
                 imgSmall={"/sweater-darkgreen.png"}
                 imgBig={"/sweater2.png"}
                 width={"70%"}
@@ -158,7 +101,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater3" key="sweater3">
             <Sweater
-                isSorted={parents[2].isSorted}
+                isSorted={parents[2]?.isSorted}
                 imgSmall={"/sweater-lightblue.png"}
                 imgBig={"/sweater3.png"}
                 width={"100%"}
@@ -166,7 +109,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater4" key="sweater4">
             <Sweater
-                isSorted={parents[3].isSorted}
+                isSorted={parents[3]?.isSorted}
                 imgSmall={"/sweater-red.png"}
                 imgBig={"/sweater4.png"}
                 width={"95%"}
@@ -174,7 +117,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater5" key="sweater5">
             <Sweater
-                isSorted={parents[4].isSorted}
+                isSorted={parents[4]?.isSorted}
                 imgSmall={"/sweater-green2.png"}
                 imgBig={"/sweater5.png"}
                 width={"95%"}
@@ -182,7 +125,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater6" key="sweater6">
             <Sweater
-                isSorted={parents[5].isSorted}
+                isSorted={parents[5]?.isSorted}
                 imgSmall={"/sweater-white.png"}
                 imgBig={"/sweater6.png"}
                 width={"95%"}
@@ -190,7 +133,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater7" key="sweater7">
             <Sweater
-                isSorted={parents[6].isSorted}
+                isSorted={parents[6]?.isSorted}
                 imgSmall={"/sweater-beige.png"}
                 imgBig={"/sweater7.png"}
                 width={"85%"}
@@ -198,7 +141,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater8" key="sweater8">
             <Sweater
-                isSorted={parents[7].isSorted}
+                isSorted={parents[7]?.isSorted}
                 imgSmall={"/sweater-lightgreen.png"}
                 imgBig={"/sweater8.png"}
                 width={"90%"}
@@ -206,7 +149,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater9" key="sweater9">
             <Sweater
-                isSorted={parents[8].isSorted}
+                isSorted={parents[8]?.isSorted}
                 imgSmall={"/sweater-maroon.png"}
                 imgBig={"/sweater9.png"}
                 width={"70%"}
@@ -214,7 +157,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater10" key="sweater10">
             <Sweater
-                isSorted={parents[9].isSorted}
+                isSorted={parents[9]?.isSorted}
                 imgSmall={"/sweater-green2.png"}
                 imgBig={"/sweater10.png"}
                 width={"85%"}
@@ -222,7 +165,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater11" key="sweater11">
             <Sweater
-                isSorted={parents[10].isSorted}
+                isSorted={parents[10]?.isSorted}
                 imgSmall={"/sweater-blue.png"}
                 imgBig={"/sweater11.png"}
                 width={"85%"}
@@ -230,7 +173,7 @@ export default function Home() {
         </Draggable>,
         <Draggable id="sweater12" key="sweater12">
             <Sweater
-                isSorted={parents[11].isSorted}
+                isSorted={parents[11]?.isSorted}
                 imgSmall={"/sweater-lightblue.png"}
                 imgBig={"/sweater12.png"}
                 width={"100%"}
@@ -252,8 +195,8 @@ export default function Home() {
         const element = draggableContent.find((el) => el.props.id === id);
         if (!element) return;
 
-        setShelves((prev: any) => {
-            return prev.map((shelf: any) => {
+        setShelves((prev) =>
+            prev.map((shelf) => {
                 if (!overRef.current) {
                     return {
                         ...shelf,
@@ -284,8 +227,8 @@ export default function Home() {
                         ),
                     };
                 }
-            });
-        });
+            })
+        );
     }, [parents]);
 
     return (
@@ -375,7 +318,6 @@ export default function Home() {
                         <Droppable id={el} className="w-full" key={el}>
                             <Shelf
                                 id={el}
-                                parents={parents}
                                 elements={shelves[idx].elements}
                                 title={titles[idx]}
                                 link={links[idx]}

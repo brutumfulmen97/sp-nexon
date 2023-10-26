@@ -1,3 +1,4 @@
+import { usePopupStore, useSweaterStore } from "@/store/store";
 import { XCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,18 +9,14 @@ type ShelfProps = {
     id: string;
     title: string;
     link: string;
-    parents: any;
 };
 
-export default function Shelf({
-    id,
-    parents,
-    elements,
-    title,
-    link,
-}: ShelfProps) {
+export default function Shelf({ id, elements, title, link }: ShelfProps) {
     const [sweaterPopupOpen, setSweaterPopupOpen] = useState(false);
     const [infoPopupOpen, setInfoPopupOpen] = useState(false);
+    const { parents } = useSweaterStore();
+
+    const popupStore = usePopupStore();
 
     return (
         <div className="flex  w-full flex-row-reverse lg:flex-col items-center justify-between lg:gap-4 ">
@@ -27,7 +24,10 @@ export default function Shelf({
                 <div className="z-20 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[90vw] md:w-[50vw]  min-h-[70vh] md:min-h-[50vh] bg-[#1c3c51ed]   rounded-lg p-12 grid grid-cols-3 gap-4">
                     <div
                         className="absolute top-2 right-2 text-white cursor-pointer"
-                        onClick={() => setSweaterPopupOpen(false)}
+                        onClick={() => {
+                            setSweaterPopupOpen(false);
+                            popupStore.setOnePopupOpen(false);
+                        }}
                     >
                         <XCircle className="bg-[#132938] rounded-full" />
                     </div>
@@ -56,7 +56,10 @@ export default function Shelf({
                 <div className="z-10 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[90vw] min-h-[50vh] md:min-h-[30vh] bg-[#1c3c51ed]   rounded-lg p-12 grid place-content-center gap-4">
                     <div
                         className="absolute top-2 right-2 text-white cursor-pointer"
-                        onClick={() => setInfoPopupOpen(false)}
+                        onClick={() => {
+                            setInfoPopupOpen(false);
+                            popupStore.setOnePopupOpen(false);
+                        }}
                     >
                         <XCircle className="bg-[#132938] rounded-full" />
                     </div>
@@ -99,9 +102,17 @@ export default function Shelf({
             <div className="flex flex-col md:flex-row lg:flex-col items-center justify-center gap-4  lg:-mt-4  w-1/3 lg:w-full">
                 <h1
                     className="text-6xl lg:text-8xl text-white cursor-pointer"
-                    onMouseOver={() => setSweaterPopupOpen(true)}
+                    onMouseOver={() => {
+                        if (popupStore.onePopupOpen) return;
+                        setSweaterPopupOpen(true);
+                        popupStore.setOnePopupOpen(true);
+                    }}
                     // onMouseLeave={() => setPopupOpen(false)}
-                    onClick={() => setSweaterPopupOpen(true)}
+                    onClick={() => {
+                        if (popupStore.onePopupOpen) return;
+                        setSweaterPopupOpen(true);
+                        popupStore.setOnePopupOpen(true);
+                    }}
                 >
                     {elements.length}
                 </h1>
@@ -116,7 +127,11 @@ export default function Shelf({
                     width={100}
                     height={100}
                     alt="info icon"
-                    onClick={() => setInfoPopupOpen(true)}
+                    onClick={() => {
+                        if (popupStore.onePopupOpen) return;
+                        setInfoPopupOpen(true);
+                        popupStore.setOnePopupOpen(true);
+                    }}
                 />
                 <Link
                     href={link}
