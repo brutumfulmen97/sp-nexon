@@ -238,11 +238,12 @@ export default function Home() {
     ];
 
     useEffect(() => {
-        const reset = parents.every((parent) => parent.parent === null);
-        if (reset) {
+        const isResetting = parents.every((parent) => parent.parent === null);
+        if (isResetting) {
             setShelves(initialShelves);
             return;
         }
+
         const id = idRef.current;
         const element = draggableContent.find((el) => el.props.id === id);
         if (!element) return;
@@ -297,7 +298,7 @@ export default function Home() {
                     {parents.every((parent) => parent.parent !== null) && (
                         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
                             <button className="bg-[#0d4067] text-white px-6 py-2 text-4xl font-bold rounded-full border-4 shadow z-10">
-                                ELKULDOM
+                                ELKÜLDÖM
                             </button>
                         </div>
                     )}
