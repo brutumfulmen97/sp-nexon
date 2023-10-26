@@ -300,8 +300,8 @@ export default function Home() {
                         style={{ width: "100%", height: "auto" }}
                     />
                     {allSweatersSorted && (
-                        <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
-                            <button className="bg-[#0d4067] text-white px-4 py-1 sm:px-6 sm:py-2 text-l sm:text-2xl md:text-4xl font-bold rounded-full border-2 sm:border-4 shadow z-10">
+                        <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-20">
+                            <button className="bg-[#0d4067] hover:bg-[#2f4b61] cursor-pointer text-white px-4 py-1 sm:px-6 sm:py-2 text-l sm:text-2xl md:text-4xl font-bold rounded-full border-2 sm:border-4 shadow ">
                                 ELKÜLDÖM
                             </button>
                         </div>
