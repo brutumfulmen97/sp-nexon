@@ -111,6 +111,7 @@ type OverType = {
 export default function Home() {
     const [parents, setParents] = useState(initialParents);
     const [shelves, setShelves] = useState(initialShelves);
+
     const overRef: OverType = useRef();
     const idRef = useRef();
 
@@ -237,6 +238,9 @@ export default function Home() {
         </Draggable>,
     ];
 
+    const allSweatersSorted = parents.every((parent) => parent.parent !== null);
+    const oneSweaterSorted = parents.some((parent) => parent.parent !== null);
+
     useEffect(() => {
         const isResetting = parents.every((parent) => parent.parent === null);
         if (isResetting) {
@@ -295,9 +299,9 @@ export default function Home() {
                         height={1000}
                         style={{ width: "100%", height: "auto" }}
                     />
-                    {parents.every((parent) => parent.parent !== null) && (
+                    {allSweatersSorted && (
                         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
-                            <button className="bg-[#0d4067] text-white px-6 py-2 text-4xl font-bold rounded-full border-4 shadow z-10">
+                            <button className="bg-[#0d4067] text-white px-4 py-1 sm:px-6 sm:py-2 text-l sm:text-2xl md:text-4xl font-bold rounded-full border-2 sm:border-4 shadow z-10">
                                 ELKÜLDÖM
                             </button>
                         </div>
@@ -384,11 +388,7 @@ export default function Home() {
                     <button
                         className="py-2 px-8 bg-red-600 hover:bg-red-500 text-white rounded-full border-4 border-white"
                         style={{
-                            visibility: parents.some(
-                                (parent) => parent.parent !== null
-                            )
-                                ? "visible"
-                                : "hidden",
+                            visibility: oneSweaterSorted ? "visible" : "hidden",
                         }}
                         onClick={() => {
                             setParents(initialParents);
