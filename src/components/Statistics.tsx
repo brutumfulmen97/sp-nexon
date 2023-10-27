@@ -54,9 +54,10 @@ export default function Statistic() {
             {!isPending && !isError && data && (
                 <div className="w-full p-4 flex flex-col items-center justify-between">
                     {data.map((item: any, index: number) => {
+                        if (item.length === 0) return null;
                         return (
                             <div key={index} className="p-4 flex gap-2">
-                                <p className="text-4xl text-red-500">{index}</p>
+                                <p className="text-red-500">{index}</p>
                                 {item.map((row: any, idx: number) => {
                                     return (
                                         <div
@@ -74,7 +75,7 @@ export default function Statistic() {
                         <div className="w-full flex flex-col items-center justify-center gap-2 mt-8">
                             <h2>pagination</h2>
                             <p>you are on page: {page}</p>
-                            <p>{numOfRecords}</p>
+                            <p>number of record: {numOfRecords}</p>
                             <div className="flex gap-2">
                                 {Array.from({ length: numPages }).map(
                                     (_, idx) => {
@@ -94,6 +95,17 @@ export default function Statistic() {
                     )}
                 </div>
             )}
+            <button
+                onClick={async () => {
+                    const res = await fetch("/api/delete", {
+                        method: "POST",
+                    });
+                    const data = await res.json();
+                    console.log(data);
+                }}
+            >
+                DELETE TEST
+            </button>
         </>
     );
 }
