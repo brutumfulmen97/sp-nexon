@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 type PopupStateType = {
     onePopupOpen: boolean;
@@ -85,12 +84,7 @@ export const usePopupStore = create<PopupStateType>()((set) => ({
     setOnePopupOpen: (onePopupOpen) => set({ onePopupOpen }),
 }));
 
-export const useSweaterStore = create<SweaterStoreType>()(
-    persist(
-        (set) => ({
-            parents: initialParents,
-            setParents: (parents) => set(() => ({ parents: parents })),
-        }),
-        { name: "sweaterStore" }
-    )
-);
+export const useSweaterStore = create<SweaterStoreType>()((set) => ({
+    parents: initialParents,
+    setParents: (parents) => set(() => ({ parents: parents })),
+}));

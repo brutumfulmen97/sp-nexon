@@ -60,10 +60,10 @@ export default function Home() {
     const idRef = useRef();
 
     function handleSubmit() {
-        const A = shelves[0].elements.length;
-        const B = shelves[1].elements.length;
-        const C = shelves[2].elements.length;
-        const D = shelves[3].elements.length;
+        const shelfACount = shelves[0].elements.length;
+        const shelfBCount = shelves[1].elements.length;
+        const shelfCCount = shelves[2].elements.length;
+        const shelfDCount = shelves[3].elements.length;
 
         fetch("/api/sheets", {
             method: "POST",
@@ -71,10 +71,10 @@ export default function Home() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                A,
-                B,
-                C,
-                D,
+                shelfACount,
+                shelfBCount,
+                shelfCCount,
+                shelfDCount,
             }),
         });
     }

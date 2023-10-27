@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { google } from "googleapis";
+import { getUserIp } from "@/lib/getUserIp";
 
 export async function GET(req: NextRequest) {
     try {
@@ -17,6 +18,10 @@ export async function GET(req: NextRequest) {
                 "https://www.googleapis.com/auth/drive.file",
             ],
         });
+
+        const url = new URL(req.url);
+        const page = url.searchParams.get("page");
+        console.log(page);
 
         const sheet = google.sheets({
             auth,
@@ -42,10 +47,9 @@ export async function POST(req: NextRequest) {
     const reqBody = await req.text();
     const body = JSON.parse(reqBody);
 
-    console.log(body);
+    const { shelfACount, shelfBCount, shelfCCount, shelfDCount } = body;
 
-    const ip = req.headers.get("X-Forwarded-For");
-    const ipParsed = ip ? ip.split(",")[0] : "unknown";
+    const ip = getUserIp(req);
     const createdAt = new Date().toISOString();
 
     try {
@@ -74,7 +78,16 @@ export async function POST(req: NextRequest) {
             range: "A2:F2",
             valueInputOption: "USER_ENTERED",
             requestBody: {
-                values: [[body.A, body.B, body.C, body.D, ip, createdAt]],
+                values: [
+                    [
+                        shelfACount,
+                        shelfBCount,
+                        shelfCCount,
+                        shelfDCount,
+                        ip,
+                        createdAt,
+                    ],
+                ],
             },
         });
 
