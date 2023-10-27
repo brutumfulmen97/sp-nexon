@@ -104,8 +104,6 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        revalidateTag("donations");
-
         return new Response('{"success": true}', { status: 200 });
     } catch (err: any) {
         console.log(err);

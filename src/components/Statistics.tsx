@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 type Donation = {
     shelfACount: string;
@@ -15,40 +14,32 @@ type Donation = {
 export default function Statistic() {
     const [page, setPage] = useState(1);
     const [numPages, setNumPages] = useState(0);
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const fetchDonations = async (page = 1) => {
-        try {
-            const res = await fetch(`/api/sheets?page=${page}`, {
-                cache: "no-cache",
-                next: {
-                    tags: ["donations"],
-                },
-            });
-            const json = await res.json();
-            setNumPages(json.numPages);
-            return json;
-        } catch (err) {
-            console.error(err);
-        }
-    };
+    useEffect(() => {
+        const fetchDonations = async (page = 1) => {
+            setIsLoading(true);
+            try {
+                const res = await fetch(`/api/sheets?page=${page}`);
+                const data = await res.json();
+                setNumPages(data.numPages);
+                setData(data.data);
+                setIsLoading(false);
+            } catch (err) {
+                console.error(err);
+            }
+        };
 
-    const {
-        data: fetchedData,
-        isPending,
-        isError,
-        error,
-    } = useQuery({
-        queryKey: ["donations", page],
-        queryFn: () => fetchDonations(page),
-    });
+        fetchDonations(page);
+    }, [page]);
 
     return (
         <>
-            {isPending && <div>Loading...</div>}
-            {isError && <div>{error.message}</div>}
-            {!isPending && !isError && fetchedData && (
-                <div>
-                    {fetchedData.data.map((item: any, index: number) => {
+            {isLoading && <div>Loading...</div>}
+            {!isLoading && data && (
+                <div className="w-full p-4 flex flex-col items-center justify-between">
+                    {data.map((item: any, index: number) => {
                         return (
                             <div key={index} className="p-4 flex gap-2">
                                 <p className="text-4xl text-red-500">{index}</p>
@@ -66,7 +57,7 @@ export default function Statistic() {
                         );
                     })}
                     {numPages > 1 && (
-                        <div className="w-full flex flex-col items-center justify-center gap-2">
+                        <div className="w-full flex flex-col items-center justify-center gap-2 mt-8">
                             <h2>pagination</h2>
                             <p>you are on page: {page}</p>
                             <div className="flex gap-2">
