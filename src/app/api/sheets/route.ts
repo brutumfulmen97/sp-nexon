@@ -21,7 +21,6 @@ export async function GET(req: NextRequest) {
 
         const url = new URL(req.url);
         const page = url.searchParams.get("page") || 0;
-        console.log(page);
 
         const sheet = google.sheets({
             auth,

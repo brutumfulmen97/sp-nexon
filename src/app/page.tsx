@@ -78,9 +78,6 @@ export default function Home() {
                     shelfCCount,
                     shelfDCount,
                 }),
-                next: {
-                    tags: ["donations"],
-                },
             });
         },
         mutationKey: ["donations"],

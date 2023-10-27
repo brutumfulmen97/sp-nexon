@@ -15,17 +15,10 @@ type Donation = {
 export default function Statistic() {
     const [page, setPage] = useState(1);
     const [numPages, setNumPages] = useState(0);
-    // const [data, setData] = useState([]);
-    // const [isLoading, setIsLoading] = useState(false);
 
     const fetchDonations = async (page = 1) => {
         try {
-            const res = await fetch(`/api/sheets?page=${page}`, {
-                cache: "no-cache",
-                next: {
-                    tags: ["donations"],
-                },
-            });
+            const res = await fetch(`/api/sheets?page=${page}`);
             const data = await res.json();
             setNumPages(data.numPages);
             return data.data;
@@ -37,6 +30,7 @@ export default function Statistic() {
     const { isPending, isError, data, error } = useQuery({
         queryKey: ["donations", page],
         queryFn: () => fetchDonations(page),
+        refetchInterval: 10000,
     });
 
     return (
