@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         });
 
         const url = new URL(req.url);
-        const page = url.searchParams.get("page");
+        const page = url.searchParams.get("page") || 0;
         console.log(page);
 
         const sheet = google.sheets({
@@ -28,14 +28,24 @@ export async function GET(req: NextRequest) {
             version: "v4",
         });
 
-        const response = await sheet.spreadsheets.values.get({
+        const response = await sheet.spreadsheets.values.batchGet({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-            range: "Sheet1!A1:F4",
+            ranges: [
+                `Sheet1!A${+page === 0 ? 2 : +page * 10 + 2}:F${
+                    +page === 0 ? +page * 10 + 2 : +page * 10 + 11
+                }`,
+                `Sheet1!A:F`,
+            ],
         });
 
-        const data = response.data.values;
+        if (!response.data.valueRanges || !response.data.valueRanges[1].values)
+            throw new Error("No data found");
+
+        const data = response.data.valueRanges[0].values;
+        const length = response.data.valueRanges[1].values.length - 1 || 0;
+        console.log(length);
         console.log(data);
-        return new Response(JSON.stringify(data));
+        return new Response(JSON.stringify({ data, length }));
     } catch (err: any) {
         console.log(err);
         return new Response(err.message, { status: 500 });
