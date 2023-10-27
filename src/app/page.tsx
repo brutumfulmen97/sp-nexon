@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { DndContext } from "@dnd-kit/core";
 import Image from "next/image";
 import Draggable from "@/components/Draggable";
@@ -59,25 +60,40 @@ export default function Home() {
     const overRef: OverType = useRef();
     const idRef = useRef();
 
-    function handleSubmit() {
-        const shelfACount = shelves[0].elements.length;
-        const shelfBCount = shelves[1].elements.length;
-        const shelfCCount = shelves[2].elements.length;
-        const shelfDCount = shelves[3].elements.length;
+    const { mutate: handleSubmit } = useMutation({
+        mutationFn: async () => {
+            const shelfACount = shelves[0].elements.length;
+            const shelfBCount = shelves[1].elements.length;
+            const shelfCCount = shelves[2].elements.length;
+            const shelfDCount = shelves[3].elements.length;
 
-        fetch("/api/sheets", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                shelfACount,
-                shelfBCount,
-                shelfCCount,
-                shelfDCount,
-            }),
-        });
-    }
+            return await fetch("/api/sheets", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    shelfACount,
+                    shelfBCount,
+                    shelfCCount,
+                    shelfDCount,
+                }),
+                next: {
+                    tags: ["donations"],
+                },
+            });
+        },
+        mutationKey: ["donations"],
+        onSuccess: () => {
+            setParents(initialParents);
+            setShelves(initialShelves);
+            //todo: toaster
+        },
+        onError: () => {
+            console.log("error");
+            //todo: toaster
+        },
+    });
 
     function handleDragEnd(event: any) {
         const {

@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 import { google } from "googleapis";
 import { getUserIp } from "@/lib/getUserIp";
-import { revalidateTag } from "next/cache";
 
 export async function GET(req: NextRequest) {
     try {
@@ -46,8 +45,7 @@ export async function GET(req: NextRequest) {
         const numPages = Math.ceil(
             (response.data.valueRanges[1].values.length - 1) / 10
         );
-        console.log(numPages);
-        console.log(data);
+
         return new Response(JSON.stringify({ data, numPages }));
     } catch (err: any) {
         console.log(err);

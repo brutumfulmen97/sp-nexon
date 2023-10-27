@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 type Donation = {
     shelfACount: string;
@@ -14,30 +15,34 @@ type Donation = {
 export default function Statistic() {
     const [page, setPage] = useState(1);
     const [numPages, setNumPages] = useState(0);
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    // const [data, setData] = useState([]);
+    // const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchDonations = async (page = 1) => {
-            setIsLoading(true);
-            try {
-                const res = await fetch(`/api/sheets?page=${page}`);
-                const data = await res.json();
-                setNumPages(data.numPages);
-                setData(data.data);
-                setIsLoading(false);
-            } catch (err) {
-                console.error(err);
-            }
-        };
+    const fetchDonations = async (page = 1) => {
+        try {
+            const res = await fetch(`/api/sheets?page=${page}`, {
+                cache: "no-cache",
+                next: {
+                    tags: ["donations"],
+                },
+            });
+            const data = await res.json();
+            setNumPages(data.numPages);
+            return data.data;
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-        fetchDonations(page);
-    }, [page]);
+    const { isPending, isError, data, error } = useQuery({
+        queryKey: ["donations", page],
+        queryFn: () => fetchDonations(page),
+    });
 
     return (
         <>
-            {isLoading && <div>Loading...</div>}
-            {!isLoading && data && (
+            {isPending && <div>Loading...</div>}
+            {!isPending && data && (
                 <div className="w-full p-4 flex flex-col items-center justify-between">
                     {data.map((item: any, index: number) => {
                         return (
