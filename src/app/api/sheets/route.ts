@@ -41,6 +41,22 @@ export async function GET(req: NextRequest) {
         let sortRange = "";
         +page === 1 ? numOfRecords + 1 : numOfRecords - +page * 10;
 
+        if (numOfRecords === 0) {
+            return new Response(
+                JSON.stringify({
+                    data: [],
+                    numPages,
+                    numOfRecords,
+                    totals: {
+                        shelfATotal: 0,
+                        shelfBTotal: 0,
+                        shelfCTotal: 0,
+                        shelfDTotal: 0,
+                    },
+                })
+            );
+        }
+
         if (sortDirection === "desc") {
             sortRange = `Sheet1!A${+page === 1 ? 2 : +page * 10 - 8}:F${
                 +page === 1 ? +page * 10 + 1 : +page * 10 + 1

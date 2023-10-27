@@ -3,6 +3,14 @@ import { google } from "googleapis";
 
 export async function POST(req: NextRequest) {
     try {
+        const reqBody = await req.text();
+        const body = JSON.parse(reqBody);
+
+        const rowNumber = body.rowNumber;
+        console.log(rowNumber);
+
+        if (!rowNumber) throw new Error("No row number provided");
+
         const auth = new google.auth.GoogleAuth({
             credentials: {
                 client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL!,
@@ -27,10 +35,8 @@ export async function POST(req: NextRequest) {
 
         await sheet.spreadsheets.values.clear({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,
-            range: "A5:F5",
+            range: `A${rowNumber}:F${rowNumber}`,
         });
-
-        const rowIndex = 5;
 
         const requests = [
             {
@@ -38,9 +44,9 @@ export async function POST(req: NextRequest) {
                     source: {
                         sheetId: 0,
                         dimension: "ROWS",
-                        startIndex: rowIndex,
+                        startIndex: rowNumber,
                     },
-                    destinationIndex: rowIndex - 1,
+                    destinationIndex: rowNumber - 1,
                 },
             },
         ];

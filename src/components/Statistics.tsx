@@ -46,10 +46,10 @@ export default function Statistic() {
         refetchInterval: 10000,
     });
 
-    console.log("a", totals.shelfATotal);
-    console.log("b", totals.shelfBTotal);
-    console.log("c", totals.shelfCTotal);
-    console.log("d", totals.shelfDTotal);
+    // console.log("a", totals.shelfATotal);
+    // console.log("b", totals.shelfBTotal);
+    // console.log("c", totals.shelfCTotal);
+    // console.log("d", totals.shelfDTotal);
 
     return (
         <>
@@ -74,6 +74,42 @@ export default function Statistic() {
                         return (
                             <div key={index} className="p-4 flex gap-2">
                                 <p className="text-red-500">{index}</p>
+                                <button
+                                    className="border-2 p-2 border-green-300"
+                                    onClick={async () => {
+                                        let rowNumber;
+                                        if (sortDirection === "asc") {
+                                            rowNumber =
+                                                page === 1
+                                                    ? numOfRecords - index + 1
+                                                    : numOfRecords -
+                                                      page * 10 +
+                                                      (10 - index) +
+                                                      1;
+                                        } else {
+                                            rowNumber =
+                                                page === 1
+                                                    ? index + 2
+                                                    : page * 10 -
+                                                      10 +
+                                                      index +
+                                                      2;
+                                        }
+                                        console.log(rowNumber);
+                                        const res = await fetch("/api/delete", {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                                rowNumber,
+                                            }),
+                                        });
+                                    }}
+                                >
+                                    X
+                                </button>
                                 {item.map((row: any, idx: number) => {
                                     return (
                                         <div
