@@ -96,16 +96,25 @@ export default function Statistic() {
                                                       2;
                                         }
                                         console.log(rowNumber);
-                                        const res = await fetch("/api/delete", {
-                                            method: "POST",
-                                            headers: {
-                                                "Content-Type":
-                                                    "application/json",
-                                            },
-                                            body: JSON.stringify({
-                                                rowNumber,
-                                            }),
-                                        });
+                                        try {
+                                            const res = await fetch(
+                                                "/api/delete",
+                                                {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type":
+                                                            "application/json",
+                                                    },
+                                                    body: JSON.stringify({
+                                                        rowNumber,
+                                                    }),
+                                                }
+                                            );
+                                            const data = await res.json();
+                                            console.log(data);
+                                        } catch (err) {
+                                            console.log(err);
+                                        }
                                     }}
                                 >
                                     X
@@ -147,17 +156,6 @@ export default function Statistic() {
                     )}
                 </div>
             )}
-            <button
-                onClick={async () => {
-                    const res = await fetch("/api/delete", {
-                        method: "POST",
-                    });
-                    const data = await res.json();
-                    console.log(data);
-                }}
-            >
-                DELETE TEST
-            </button>
         </>
     );
 }
