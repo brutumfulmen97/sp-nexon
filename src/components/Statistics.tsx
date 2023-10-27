@@ -22,10 +22,13 @@ export default function Statistic() {
         shelfCTotal: 0,
         shelfDTotal: 0,
     });
+    const [sortDirection, setSortDirection] = useState("asc");
 
-    const fetchDonations = async (page = 1) => {
+    const fetchDonations = async (page = 1, sortDirection = "asc") => {
         try {
-            const res = await fetch(`/api/sheets?page=${page}`);
+            const res = await fetch(
+                `/api/sheets?page=${page}&sortDirection=${sortDirection}`
+            );
             const data = await res.json();
             setNumPages(data.numPages);
             setNumOfRecords(data.numOfRecords);
@@ -37,8 +40,8 @@ export default function Statistic() {
     };
 
     const { isPending, isError, data, error } = useQuery({
-        queryKey: ["donations", page],
-        queryFn: () => fetchDonations(page),
+        queryKey: ["donations", page, sortDirection],
+        queryFn: () => fetchDonations(page, sortDirection),
         refetchInterval: 10000,
     });
 
@@ -53,6 +56,18 @@ export default function Statistic() {
             {isError && <div>{error.message}</div>}
             {!isPending && !isError && data && (
                 <div className="w-full p-4 flex flex-col items-center justify-between">
+                    <h2
+                        onClick={() =>
+                            setSortDirection((prev: string) => {
+                                setPage(1);
+                                if (prev === "asc") return "desc";
+                                if (prev === "desc") return "asc";
+                                else return "asc";
+                            })
+                        }
+                    >
+                        {sortDirection}
+                    </h2>
                     {data.map((item: any, index: number) => {
                         if (item.length === 0) return null;
                         return (

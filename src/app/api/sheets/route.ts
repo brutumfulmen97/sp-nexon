@@ -21,19 +21,50 @@ export async function GET(req: NextRequest) {
 
         const url = new URL(req.url);
         const page = url.searchParams.get("page") || 0;
+        const sortDirection = url.searchParams.get("sortDirection") || "asc";
 
         const sheet = google.sheets({
             auth,
             version: "v4",
         });
 
+        const response1 = await sheet.spreadsheets.values.get({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID!,
+            range: "Sheet1!A1:A",
+        });
+
+        if (!response1.data.values) throw new Error("No data brt found");
+
+        const numOfRecords = response1.data.values.length - 1;
+        const numPages = Math.ceil((numOfRecords - 1) / 10);
+
+        let sortRange = "";
+        +page === 1 ? numOfRecords + 1 : numOfRecords - +page * 10;
+
+        if (sortDirection === "desc") {
+            sortRange = `Sheet1!A${+page === 1 ? 2 : +page * 10 - 8}:F${
+                +page === 1 ? +page * 10 + 1 : +page * 10 + 1
+            }`;
+        } else {
+            sortRange = `Sheet1!A${
+                +page === 1
+                    ? numOfRecords < 10
+                        ? 2
+                        : numOfRecords - 8
+                    : numOfRecords - +page * 10 + 2 < 2
+                    ? 2
+                    : numOfRecords - +page * 10 + 2
+            }:F${
+                +page === 1 ? numOfRecords + 1 : numOfRecords - +page * 10 + 11
+            }`;
+        }
+
+        console.log(sortRange);
+
         const response = await sheet.spreadsheets.values.batchGet({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,
             ranges: [
-                `Sheet1!A${+page === 1 ? 2 : +page * 10 - 8}:F${
-                    +page === 1 ? +page * 10 + 1 : +page * 10 + 1
-                }`,
-                `Sheet1!A:F`,
+                sortRange,
                 "Sheet1!A2:A",
                 "Sheet1!B2:B",
                 "Sheet1!C2:C",
@@ -41,34 +72,29 @@ export async function GET(req: NextRequest) {
             ],
         });
 
-        if (!response.data.valueRanges || !response.data.valueRanges[1].values)
-            throw new Error("No data found");
+        if (!response.data.valueRanges) throw new Error("No data found");
 
         const data = response.data.valueRanges[0].values;
-        const numPages = Math.ceil(
-            (response.data.valueRanges[1].values.length - 1) / 10
-        );
-        const numOfRecords = response.data.valueRanges[1].values.length - 1;
 
-        const shelfATotal = response.data.valueRanges[2].values?.reduce(
+        const shelfATotal = response.data.valueRanges[1].values?.reduce(
             (acc: number, curr: any) => {
                 return acc + +curr;
             },
             0
         );
-        const shelfBTotal = response.data.valueRanges[3].values?.reduce(
+        const shelfBTotal = response.data.valueRanges[2].values?.reduce(
             (acc: number, curr: any) => {
                 return acc + +curr;
             },
             0
         );
-        const shelfCTotal = response.data.valueRanges[4].values?.reduce(
+        const shelfCTotal = response.data.valueRanges[3].values?.reduce(
             (acc: number, curr: any) => {
                 return acc + +curr;
             },
             0
         );
-        const shelfDTotal = response.data.valueRanges[5].values?.reduce(
+        const shelfDTotal = response.data.valueRanges[4].values?.reduce(
             (acc: number, curr: any) => {
                 return acc + +curr;
             },
