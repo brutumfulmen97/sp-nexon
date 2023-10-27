@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { google } from "googleapis";
 import { getUserIp } from "@/lib/getUserIp";
+import { revalidateTag } from "next/cache";
 
 export async function GET(req: NextRequest) {
     try {
@@ -31,8 +32,8 @@ export async function GET(req: NextRequest) {
         const response = await sheet.spreadsheets.values.batchGet({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,
             ranges: [
-                `Sheet1!A${+page === 0 ? 2 : +page * 10 + 2}:F${
-                    +page === 0 ? +page * 10 + 2 : +page * 10 + 11
+                `Sheet1!A${+page === 1 ? 2 : +page * 10 - 8}:F${
+                    +page === 1 ? +page * 10 + 1 : +page * 10 + 1
                 }`,
                 `Sheet1!A:F`,
             ],
@@ -42,10 +43,12 @@ export async function GET(req: NextRequest) {
             throw new Error("No data found");
 
         const data = response.data.valueRanges[0].values;
-        const length = response.data.valueRanges[1].values.length - 1 || 0;
-        console.log(length);
+        const numPages = Math.ceil(
+            (response.data.valueRanges[1].values.length - 1) / 10
+        );
+        console.log(numPages);
         console.log(data);
-        return new Response(JSON.stringify({ data, length }));
+        return new Response(JSON.stringify({ data, numPages }));
     } catch (err: any) {
         console.log(err);
         return new Response(err.message, { status: 500 });
@@ -100,6 +103,8 @@ export async function POST(req: NextRequest) {
                 ],
             },
         });
+
+        revalidateTag("donations");
 
         return new Response('{"success": true}', { status: 200 });
     } catch (err: any) {
