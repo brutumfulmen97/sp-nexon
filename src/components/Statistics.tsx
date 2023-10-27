@@ -33,6 +33,7 @@ export default function Statistic() {
             setNumPages(data.numPages);
             setNumOfRecords(data.numOfRecords);
             setTotals(data.totals);
+            if (sortDirection === "asc") return data.data.reverse();
             return data.data;
         } catch (err) {
             console.error(err);
