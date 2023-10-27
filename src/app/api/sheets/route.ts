@@ -34,6 +34,10 @@ export async function GET(req: NextRequest) {
                     +page === 1 ? +page * 10 + 1 : +page * 10 + 1
                 }`,
                 `Sheet1!A:F`,
+                "Sheet1!A2:A",
+                "Sheet1!B2:B",
+                "Sheet1!C2:C",
+                "Sheet1!D2:D",
             ],
         });
 
@@ -44,8 +48,41 @@ export async function GET(req: NextRequest) {
         const numPages = Math.ceil(
             (response.data.valueRanges[1].values.length - 1) / 10
         );
+        const numOfRecords = response.data.valueRanges[1].values.length - 1;
 
-        return new Response(JSON.stringify({ data, numPages }));
+        const shelfATotal = response.data.valueRanges[2].values?.reduce(
+            (acc: number, curr: any) => {
+                return acc + +curr;
+            },
+            0
+        );
+        const shelfBTotal = response.data.valueRanges[3].values?.reduce(
+            (acc: number, curr: any) => {
+                return acc + +curr;
+            },
+            0
+        );
+        const shelfCTotal = response.data.valueRanges[4].values?.reduce(
+            (acc: number, curr: any) => {
+                return acc + +curr;
+            },
+            0
+        );
+        const shelfDTotal = response.data.valueRanges[5].values?.reduce(
+            (acc: number, curr: any) => {
+                return acc + +curr;
+            },
+            0
+        );
+
+        return new Response(
+            JSON.stringify({
+                data,
+                numPages,
+                numOfRecords,
+                totals: { shelfATotal, shelfBTotal, shelfCTotal, shelfDTotal },
+            })
+        );
     } catch (err: any) {
         console.log(err);
         return new Response(err.message, { status: 500 });

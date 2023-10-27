@@ -82,8 +82,9 @@ export default function Home() {
         },
         mutationKey: ["donations"],
         onSuccess: () => {
-            setParents(initialParents);
-            setShelves(initialShelves);
+            // setParents(initialParents);
+            // setShelves(initialShelves);
+            console.log("success");
             //todo: toaster
         },
         onError: () => {
