@@ -13,8 +13,8 @@ const Header = ({}) => {
                         ? "/headerImage2022.png"
                         : "/headerphone.png"
                 }
-                width={1000}
-                height={1000}
+                width={2000}
+                height={2000}
                 style={{ width: "100%", height: "auto" }}
                 priority={true}
                 alt="header image"

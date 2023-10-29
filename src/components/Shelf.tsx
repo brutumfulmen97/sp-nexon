@@ -37,8 +37,8 @@ export default function Shelf({ id, elements, title, link }: ShelfProps) {
                                 <div className="w-full" key={el.id}>
                                     <Image
                                         src={`/${el.id}.png`}
-                                        width={100}
-                                        height={100}
+                                        width={300}
+                                        height={300}
                                         style={{
                                             width: "100%",
                                             height: "auto",

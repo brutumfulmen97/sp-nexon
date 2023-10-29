@@ -11,6 +11,12 @@
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.15",
+    "@mui/material": "^5.14.15",
+    "@mui/x-charts": "^6.0.0-alpha.17",
     "@tanstack/react-query": "^5.0.5",
     "@uidotdev/usehooks": "^2.4.1",
     "encoding": "^0.1.13",

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { PieChart, pieArcClasses } from "@mui/x-charts/PieChart";
 
 type Donation = {
     shelfACount: string;
@@ -16,6 +17,7 @@ export default function Statistic() {
     const [page, setPage] = useState(1);
     const [numPages, setNumPages] = useState(0);
     const [numOfRecords, setNumOfRecords] = useState(0);
+    const [latestRecord, setLatestRecord] = useState(["", "", "", "", ""]);
     const [totals, setTotals] = useState({
         shelfATotal: 0,
         shelfBTotal: 0,
@@ -32,6 +34,7 @@ export default function Statistic() {
             const data = await res.json();
             setNumPages(data.numPages);
             setNumOfRecords(data.numOfRecords);
+            setLatestRecord(data.latestRecord);
             setTotals(data.totals);
             if (sortDirection === "asc") return data.data.reverse();
             return data.data;
@@ -46,17 +49,42 @@ export default function Statistic() {
         refetchInterval: 10000,
     });
 
-    // console.log("a", totals.shelfATotal);
-    // console.log("b", totals.shelfBTotal);
-    // console.log("c", totals.shelfCTotal);
-    // console.log("d", totals.shelfDTotal);
-
     return (
         <>
             {isPending && <div>Loading...</div>}
             {isError && <div>{error.message}</div>}
             {!isPending && !isError && data && (
                 <div className="w-full p-4 flex flex-col items-center justify-between">
+                    {latestRecord && (
+                        <div>
+                            <h2 className="text-blue-700">LATEST DONATION:</h2>
+                            <hr />
+                            <p>A: {latestRecord[0]}</p>
+                            <hr />
+                            <p>B: {latestRecord[1]}</p>
+                            <hr />
+                            <p>C: {latestRecord[2]}</p>
+                            <hr />
+                            <p>D: {latestRecord[3]}</p>
+                            <hr />
+                            <p>ip: {latestRecord[4]}</p>
+                            <hr />
+                            <p>createdAt: {latestRecord[5]}</p>
+                            <hr />
+                        </div>
+                    )}
+                    <h1>
+                        NUMBER OF RECORD:{" "}
+                        <span className="text-red-600">{numOfRecords}</span>
+                    </h1>
+                    <hr />
+                    <div className="flex gap-2">
+                        <p className="text-blue-700">TOTALS:</p>
+                        <p>A: {totals.shelfATotal}</p>
+                        <p>B: {totals.shelfBTotal}</p>
+                        <p>C: {totals.shelfCTotal}</p>
+                        <p>D: {totals.shelfDTotal}</p>
+                    </div>
                     <h2
                         onClick={() =>
                             setSortDirection((prev: string) => {
@@ -69,13 +97,21 @@ export default function Statistic() {
                     >
                         {sortDirection}
                     </h2>
+                    <div className="flex border border-black gap-2">
+                        <p className="border-r-2 border-black">A:</p>
+                        <p className="border-r-2 border-black">B:</p>
+                        <p className="border-r-2 border-black">C:</p>
+                        <p className="border-r-2 border-black">D:</p>
+                        <p className="border-r-2 border-black">IP:</p>
+                        <p className="border-r-2 border-black">CREATED AT:</p>
+                    </div>
+
                     {data.map((item: any, index: number) => {
                         if (item.length === 0) return null;
                         return (
-                            <div key={index} className="p-4 flex gap-2">
-                                <p className="text-red-500">{index}</p>
+                            <div key={index} className="p-4 flex">
                                 <button
-                                    className="border-2 p-2 border-green-300"
+                                    className="border-2 p-2 border-red-600"
                                     onClick={async () => {
                                         let rowNumber;
                                         if (sortDirection === "asc") {
@@ -95,7 +131,6 @@ export default function Statistic() {
                                                       index +
                                                       2;
                                         }
-                                        console.log(rowNumber);
                                         try {
                                             const res = await fetch(
                                                 "/api/delete",
@@ -123,7 +158,7 @@ export default function Statistic() {
                                     return (
                                         <div
                                             key={idx}
-                                            className="p-2 border-border-black"
+                                            className="p-2 border border-black"
                                         >
                                             {row}
                                         </div>
@@ -154,6 +189,67 @@ export default function Statistic() {
                             </div>
                         </div>
                     )}
+                    <div className="mt-4">
+                        <PieChart
+                            series={[
+                                {
+                                    data: [
+                                        {
+                                            id: 0,
+                                            value: totals.shelfATotal,
+                                            label: `A: ${(
+                                                (totals.shelfATotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                        {
+                                            id: 1,
+                                            value: totals.shelfBTotal,
+                                            label: `B: ${(
+                                                (totals.shelfBTotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                        {
+                                            id: 2,
+                                            value: totals.shelfCTotal,
+                                            label: `C: ${(
+                                                (totals.shelfCTotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                        {
+                                            id: 3,
+                                            value: totals.shelfDTotal,
+                                            label: `D: ${(
+                                                (totals.shelfDTotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                    ],
+                                    highlightScope: {
+                                        faded: "global",
+                                        highlighted: "item",
+                                    },
+                                    faded: {
+                                        innerRadius: 30,
+                                        additionalRadius: -30,
+                                    },
+                                },
+                            ]}
+                            width={400}
+                            height={200}
+                            sx={{
+                                [`& .${pieArcClasses.faded}`]: {
+                                    fill: "gray",
+                                },
+                            }}
+                        />
+                    </div>
                 </div>
             )}
         </>
