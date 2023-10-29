@@ -3,6 +3,9 @@ import { google } from "googleapis";
 import { getUserIp } from "@/lib/getUserIp";
 
 export async function GET(req: NextRequest) {
+    //todo: jedan request pa sve na clientu da se sortira? mozda
+    //todo: izvuci auth deo u posebnu funkciju
+    //todo: error handling resiti i na clientu toaster i slicno, mozda zod da se koristi kao validator
     try {
         const auth = new google.auth.GoogleAuth({
             credentials: {
