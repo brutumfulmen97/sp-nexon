@@ -57,6 +57,8 @@ export default function Home() {
     const { parents, setParents } = useSweaterStore();
     const [shelves, setShelves] = useState(initialShelves);
 
+    // TODO: shelves state u zustand store da proradi
+
     const overRef: OverType = useRef();
     const idRef = useRef();
 
@@ -85,11 +87,11 @@ export default function Home() {
             // setParents(initialParents);
             // setShelves(initialShelves);
             console.log("success");
-            //todo: toaster
+            // TODO: toaster
         },
         onError: () => {
             console.log("error");
-            //todo: toaster
+            // TODO: toaster
         },
     });
 

@@ -18,6 +18,8 @@ export default function Shelf({ id, elements, title, link }: ShelfProps) {
 
     const popupStore = usePopupStore();
 
+    // TODO: izvuci u komponente neke stvari, event handlere u f-je
+
     return (
         <div className="flex  w-full flex-row-reverse lg:flex-col items-center justify-between lg:gap-4 ">
             {sweaterPopupOpen && (
