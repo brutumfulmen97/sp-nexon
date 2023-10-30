@@ -55,11 +55,7 @@ export default function Statistic() {
         <>
             {isPending && (
                 <div className="w-[60vw]">
-                    <Skeleton
-                        count={8}
-                        s
-                        className="ml-[20vw] h-[100px] mb-12"
-                    />
+                    <Skeleton count={8} className="ml-[20vw] h-[100px] mb-12" />
                 </div>
             )}
             {isError && <div>{error.message}</div>}
