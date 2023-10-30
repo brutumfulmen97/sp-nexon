@@ -11,6 +11,7 @@ import Shelf from "@/components/Shelf";
 import { useSweaterStore, initialParents } from "@/store/store";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 const links = [
     "www.szentistvanzene.hu",
@@ -87,14 +88,16 @@ export default function Home() {
         },
         mutationKey: ["donations"],
         onSuccess: () => {
-            setParents(initialParents);
-            setShelves(initialShelves);
-            router.push("/statistics");
+            // setParents(initialParents);
+            // setShelves(initialShelves);
+            // router.push("/statistics");
+            toast.success("bravo");
             console.log("success");
             // TODO: toaster
         },
         onError: () => {
             console.log("error");
+            toast.error("cekaj 10 min");
             // TODO: toaster
         },
     });
@@ -274,6 +277,9 @@ export default function Home() {
 
     return (
         <>
+            <div>
+                <Toaster />
+            </div>
             <Header />
 
             <DndContext onDragEnd={handleDragEnd}>

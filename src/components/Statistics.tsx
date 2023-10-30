@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { PieChart, pieArcClasses } from "@mui/x-charts/PieChart";
+import { Trash2 } from "lucide-react";
 
 type Donation = {
     shelfACount: string;
@@ -55,33 +56,47 @@ export default function Statistic() {
         <>
             {isPending && (
                 <div className="w-[60vw]">
-                    <Skeleton count={8} className="ml-[20vw] h-[100px] mb-12" />
+                    <Skeleton count={5} className="ml-[20vw] h-[100px] mb-12" />
                 </div>
             )}
             {isError && <div>{error.message}</div>}
             {!isPending && !isError && data && (
                 <div className="w-full p-4 flex flex-col items-center justify-between">
                     {latestRecord && (
-                        <div>
-                            <h2 className="text-blue-700">LATEST DONATION:</h2>
-                            <hr />
-                            <p>A: {latestRecord[0]}</p>
-                            <hr />
-                            <p>B: {latestRecord[1]}</p>
-                            <hr />
-                            <p>C: {latestRecord[2]}</p>
-                            <hr />
-                            <p>D: {latestRecord[3]}</p>
-                            <hr />
-                            <p>ip: {latestRecord[4]}</p>
-                            <hr />
-                            <p>createdAt: {latestRecord[5]}</p>
+                        <div className="flex gap-2">
+                            <h2 className="font-semibold">LATEST DONATION:</h2>
+                            <p>
+                                <span className="font-semibold">A:</span>{" "}
+                                {latestRecord[0]}
+                            </p>
+                            <p>
+                                <span className="font-semibold">B:</span>{" "}
+                                {latestRecord[1]}
+                            </p>
+                            <p>
+                                <span className="font-semibold">C:</span>{" "}
+                                {latestRecord[2]}
+                            </p>
+                            <p>
+                                <span className="font-semibold">D:</span>{" "}
+                                {latestRecord[3]}
+                            </p>
+                            <p>
+                                <span className="font-semibold">IP:</span>{" "}
+                                {latestRecord[4]}
+                            </p>
+                            <p>
+                                <span className="font-semibold">
+                                    CREATED AT:
+                                </span>{" "}
+                                {latestRecord[5]}
+                            </p>
                             <hr />
                         </div>
                     )}
-                    <h1>
+                    <h1 className="font-semibold">
                         NUMBER OF RECORD:{" "}
-                        <span className="text-red-600">{numOfRecords}</span>
+                        <span className="font-medium">{numOfRecords}</span>
                     </h1>
                     <div className="mt-4">
                         <PieChart
@@ -135,8 +150,8 @@ export default function Statistic() {
                                     },
                                 },
                             ]}
-                            width={400}
-                            height={200}
+                            width={300}
+                            height={150}
                             sx={{
                                 [`& .${pieArcClasses.faded}`]: {
                                     fill: "gray",
@@ -146,29 +161,17 @@ export default function Statistic() {
                     </div>
                     <hr />
                     <div className="flex gap-2">
-                        <p className="text-blue-700">TOTALS:</p>
+                        <p className="font-bold">TOTALS:</p>
                         <p>A: {totals.shelfATotal}</p>
                         <p>B: {totals.shelfBTotal}</p>
                         <p>C: {totals.shelfCTotal}</p>
                         <p>D: {totals.shelfDTotal}</p>
                     </div>
-                    {/* <h2
-                        onClick={() =>
-                            setSortDirection((prev: string) => {
-                                setPage(1);
-                                if (prev === "asc") return "desc";
-                                if (prev === "desc") return "asc";
-                                else return "asc";
-                            })
-                        }
-                    >
-                        {sortDirection}
-                    </h2> */}
-                    <label htmlFor="sort" className="mt-2">
+                    <label htmlFor="sort" className="mt-6">
                         Sort by date:
                     </label>
                     <select
-                        className="mb-2"
+                        className="mb-6"
                         name="sort"
                         id="sort"
                         onChange={(e) => {
@@ -182,7 +185,7 @@ export default function Statistic() {
                         <option value="asc">ASCENDING</option>
                         <option value="desc">DESCENDING</option>
                     </select>
-                    <table className="w-3/4 text-center">
+                    <table className="w-full md:w-3/4 text-center">
                         <thead>
                             <tr>
                                 <th>A</th>
@@ -191,7 +194,7 @@ export default function Statistic() {
                                 <th>D</th>
                                 <th>ip</th>
                                 <th>created at</th>
-                                <th></th>
+                                <th>X</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -203,9 +206,7 @@ export default function Statistic() {
                                             return <td key={idx}>{row}</td>;
                                         })}
                                         <td>
-                                            {" "}
                                             <button
-                                                className="border-2 p-2 border-red-600"
                                                 onClick={async () => {
                                                     let rowNumber;
                                                     if (
@@ -253,7 +254,7 @@ export default function Statistic() {
                                                     }
                                                 }}
                                             >
-                                                X
+                                                <Trash2 className="w-6 h-6" />
                                             </button>
                                         </td>
                                     </tr>
@@ -261,72 +262,8 @@ export default function Statistic() {
                             })}
                         </tbody>
                     </table>
-
-                    {/* {data.map((item: any, index: number) => {
-                        if (item.length === 0) return null;
-                        return (
-                            <div key={index} className="p-4 flex">
-                                <button
-                                    className="border-2 p-2 border-red-600"
-                                    onClick={async () => {
-                                        let rowNumber;
-                                        if (sortDirection === "asc") {
-                                            rowNumber =
-                                                page === 1
-                                                    ? numOfRecords - index + 1
-                                                    : numOfRecords -
-                                                      page * 10 +
-                                                      (10 - index) +
-                                                      1;
-                                        } else {
-                                            rowNumber =
-                                                page === 1
-                                                    ? index + 2
-                                                    : page * 10 -
-                                                      10 +
-                                                      index +
-                                                      2;
-                                        }
-                                        try {
-                                            const res = await fetch(
-                                                "/api/delete",
-                                                {
-                                                    method: "POST",
-                                                    headers: {
-                                                        "Content-Type":
-                                                            "application/json",
-                                                    },
-                                                    body: JSON.stringify({
-                                                        rowNumber,
-                                                    }),
-                                                }
-                                            );
-                                            const data = await res.json();
-                                            console.log(data);
-                                        } catch (err) {
-                                            console.log(err);
-                                        }
-                                    }}
-                                >
-                                    X
-                                </button>
-                                {item.map((row: any, idx: number) => {
-                                    return (
-                                        <div
-                                            key={idx}
-                                            className="p-2 border border-black"
-                                        >
-                                            {row}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    })} */}
                     {numPages > 1 && (
                         <div className="w-full flex flex-col items-center justify-center gap-2 mt-8">
-                            <h2>pagination</h2>
-                            <p>you are on page: {page}</p>
                             <div className="flex gap-2">
                                 {Array.from({ length: numPages }).map(
                                     (_, idx) => {
@@ -334,7 +271,16 @@ export default function Statistic() {
                                             <button
                                                 key={idx}
                                                 onClick={() => setPage(idx + 1)}
-                                                className="border border-black p-2 bg-green-500"
+                                                className="border-b border-black px-1"
+                                                style={
+                                                    page === idx + 1
+                                                        ? {
+                                                              fontWeight:
+                                                                  "bold",
+                                                              border: "none",
+                                                          }
+                                                        : {}
+                                                }
                                             >
                                                 {idx + 1}
                                             </button>

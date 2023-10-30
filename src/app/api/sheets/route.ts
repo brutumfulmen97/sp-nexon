@@ -186,7 +186,8 @@ export async function POST(req: NextRequest) {
 
         if (diffMinutes < 10) {
             console.log("ne mere");
-            return new Response('{"success": false}', { status: 400 });
+            throw new Error("You can't submit more than once in 10 minutes");
+            return;
         }
 
         await sheet.spreadsheets.values.append({
@@ -210,6 +211,6 @@ export async function POST(req: NextRequest) {
         return new Response('{"success": true}', { status: 200 });
     } catch (err: any) {
         console.log(err);
-        return new Response(err.message, { status: 500 });
+        return Response.json({ error: err.message }, { status: 403 });
     }
 }
