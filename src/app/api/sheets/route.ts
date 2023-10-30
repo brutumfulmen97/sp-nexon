@@ -209,7 +209,7 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        return new Response('{"success": true}', { status: 200 });
+        return Response.json({ success: "true" }, { status: 200 });
     } catch (err: any) {
         console.log(err);
         return Response.json({ error: err.message }, { status: 500 });

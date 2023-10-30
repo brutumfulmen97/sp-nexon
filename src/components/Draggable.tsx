@@ -16,7 +16,7 @@ export default function Draggable(props: {
     return (
         <div
             ref={setNodeRef}
-            className="touch-manipulation"
+            className="touch-none"
             style={style}
             {...listeners}
             {...attributes}

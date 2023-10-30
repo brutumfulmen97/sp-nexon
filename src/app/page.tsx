@@ -73,7 +73,7 @@ export default function Home() {
             const shelfCCount = shelves[2].elements.length;
             const shelfDCount = shelves[3].elements.length;
 
-            return await fetch("/api/sheets", {
+            const res = await fetch("/api/sheets", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -85,6 +85,7 @@ export default function Home() {
                     shelfDCount,
                 }),
             });
+            return await res.json();
         },
         mutationKey: ["donations"],
         onSuccess: () => {
