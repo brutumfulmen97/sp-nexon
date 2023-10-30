@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { PieChart, pieArcClasses } from "@mui/x-charts/PieChart";
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 
 type Donation = {
     shelfACount: string;
@@ -55,8 +53,8 @@ export default function Statistic() {
     return (
         <>
             {isPending && (
-                <div className="w-[60vw]">
-                    <Skeleton count={5} className="ml-[20vw] h-[100px] mb-12" />
+                <div className="w-full h-screen grid place-content-center">
+                    <Loader2 className="animate-spin w-24 h-24" />
                 </div>
             )}
             {isError && <div>{error.message}</div>}
@@ -161,7 +159,9 @@ export default function Statistic() {
                     </div>
                     <hr />
                     <div className="flex gap-2">
-                        <p className="font-bold">TOTALS:</p>
+                        <p className="font-bold">
+                            Total number of donations per charity:
+                        </p>
                         <p>A: {totals.shelfATotal}</p>
                         <p>B: {totals.shelfBTotal}</p>
                         <p>C: {totals.shelfCTotal}</p>
@@ -192,8 +192,8 @@ export default function Statistic() {
                                 <th>B</th>
                                 <th>C</th>
                                 <th>D</th>
-                                <th>ip</th>
-                                <th>created at</th>
+                                <th>IP</th>
+                                <th>CREATED AT</th>
                                 <th>X</th>
                             </tr>
                         </thead>
@@ -271,13 +271,13 @@ export default function Statistic() {
                                             <button
                                                 key={idx}
                                                 onClick={() => setPage(idx + 1)}
-                                                className="border-b border-black px-1"
                                                 style={
                                                     page === idx + 1
                                                         ? {
                                                               fontWeight:
                                                                   "bold",
-                                                              border: "none",
+                                                              borderBottom:
+                                                                  "1px solid black",
                                                           }
                                                         : {}
                                                 }
