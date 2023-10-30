@@ -164,14 +164,12 @@ export async function POST(req: NextRequest) {
             version: "v4",
         });
 
-        const response1 = await sheet.spreadsheets.values.get({
+        const res = await sheet.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,
             range: "Sheet1!E2:E",
         });
 
-        const lastRecord = response1.data.values?.flat().lastIndexOf(ip);
-
-        console.log(lastRecord);
+        const lastRecord = res.data.values?.flat().lastIndexOf(ip);
 
         const res2 = await sheet.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,

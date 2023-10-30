@@ -10,6 +10,7 @@ import Sweater from "@/components/Sweater";
 import Shelf from "@/components/Shelf";
 import { useSweaterStore, initialParents } from "@/store/store";
 import Header from "@/components/Header";
+import { useRouter } from "next/navigation";
 
 const links = [
     "www.szentistvanzene.hu",
@@ -57,6 +58,8 @@ export default function Home() {
     const { parents, setParents } = useSweaterStore();
     const [shelves, setShelves] = useState(initialShelves);
 
+    const router = useRouter();
+
     // TODO: shelves state u zustand store da proradi
 
     const overRef: OverType = useRef();
@@ -84,8 +87,9 @@ export default function Home() {
         },
         mutationKey: ["donations"],
         onSuccess: () => {
-            // setParents(initialParents);
-            // setShelves(initialShelves);
+            setParents(initialParents);
+            setShelves(initialShelves);
+            router.push("/statistics");
             console.log("success");
             // TODO: toaster
         },

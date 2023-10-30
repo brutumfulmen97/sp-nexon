@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { PieChart, pieArcClasses } from "@mui/x-charts/PieChart";
 
 type Donation = {
@@ -51,7 +53,15 @@ export default function Statistic() {
 
     return (
         <>
-            {isPending && <div>Loading...</div>}
+            {isPending && (
+                <div className="w-[60vw]">
+                    <Skeleton
+                        count={8}
+                        s
+                        className="ml-[20vw] h-[100px] mb-12"
+                    />
+                </div>
+            )}
             {isError && <div>{error.message}</div>}
             {!isPending && !isError && data && (
                 <div className="w-full p-4 flex flex-col items-center justify-between">
@@ -77,6 +87,67 @@ export default function Statistic() {
                         NUMBER OF RECORD:{" "}
                         <span className="text-red-600">{numOfRecords}</span>
                     </h1>
+                    <div className="mt-4">
+                        <PieChart
+                            series={[
+                                {
+                                    data: [
+                                        {
+                                            id: 0,
+                                            value: totals.shelfATotal,
+                                            label: `A: ${(
+                                                (totals.shelfATotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                        {
+                                            id: 1,
+                                            value: totals.shelfBTotal,
+                                            label: `B: ${(
+                                                (totals.shelfBTotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                        {
+                                            id: 2,
+                                            value: totals.shelfCTotal,
+                                            label: `C: ${(
+                                                (totals.shelfCTotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                        {
+                                            id: 3,
+                                            value: totals.shelfDTotal,
+                                            label: `D: ${(
+                                                (totals.shelfDTotal /
+                                                    (numOfRecords * 12)) *
+                                                100
+                                            ).toFixed(2)}%`,
+                                        },
+                                    ],
+                                    highlightScope: {
+                                        faded: "global",
+                                        highlighted: "item",
+                                    },
+                                    faded: {
+                                        innerRadius: 30,
+                                        additionalRadius: -30,
+                                    },
+                                },
+                            ]}
+                            width={400}
+                            height={200}
+                            sx={{
+                                [`& .${pieArcClasses.faded}`]: {
+                                    fill: "gray",
+                                },
+                            }}
+                        />
+                    </div>
                     <hr />
                     <div className="flex gap-2">
                         <p className="text-blue-700">TOTALS:</p>
@@ -142,7 +213,7 @@ export default function Statistic() {
                                                 onClick={async () => {
                                                     let rowNumber;
                                                     if (
-                                                        sortDirection === "asc"
+                                                        sortDirection === "desc"
                                                     ) {
                                                         rowNumber =
                                                             page === 1
@@ -277,67 +348,6 @@ export default function Statistic() {
                             </div>
                         </div>
                     )}
-                    <div className="mt-4">
-                        <PieChart
-                            series={[
-                                {
-                                    data: [
-                                        {
-                                            id: 0,
-                                            value: totals.shelfATotal,
-                                            label: `A: ${(
-                                                (totals.shelfATotal /
-                                                    (numOfRecords * 12)) *
-                                                100
-                                            ).toFixed(2)}%`,
-                                        },
-                                        {
-                                            id: 1,
-                                            value: totals.shelfBTotal,
-                                            label: `B: ${(
-                                                (totals.shelfBTotal /
-                                                    (numOfRecords * 12)) *
-                                                100
-                                            ).toFixed(2)}%`,
-                                        },
-                                        {
-                                            id: 2,
-                                            value: totals.shelfCTotal,
-                                            label: `C: ${(
-                                                (totals.shelfCTotal /
-                                                    (numOfRecords * 12)) *
-                                                100
-                                            ).toFixed(2)}%`,
-                                        },
-                                        {
-                                            id: 3,
-                                            value: totals.shelfDTotal,
-                                            label: `D: ${(
-                                                (totals.shelfDTotal /
-                                                    (numOfRecords * 12)) *
-                                                100
-                                            ).toFixed(2)}%`,
-                                        },
-                                    ],
-                                    highlightScope: {
-                                        faded: "global",
-                                        highlighted: "item",
-                                    },
-                                    faded: {
-                                        innerRadius: 30,
-                                        additionalRadius: -30,
-                                    },
-                                },
-                            ]}
-                            width={400}
-                            height={200}
-                            sx={{
-                                [`& .${pieArcClasses.faded}`]: {
-                                    fill: "gray",
-                                },
-                            }}
-                        />
-                    </div>
                 </div>
             )}
         </>

@@ -135,8 +135,8 @@ export default function Shelf({ id, elements, title, link }: ShelfProps) {
                         popupStore.setOnePopupOpen(true);
                     }}
                 />
-                <Link
-                    href={link}
+                <a
+                    href={`https://${link}`}
                     target="_blank"
                     className="lg:hidden cursor-pointer w-[40px] md:w-[50px] h-[40px] md:h-[50px]"
                 >
@@ -146,10 +146,14 @@ export default function Shelf({ id, elements, title, link }: ShelfProps) {
                         height={100}
                         alt="link icon"
                     />
-                </Link>
-                <Link href={link} className="hidden lg:block">
+                </a>
+                <a
+                    href={`https://${link}`}
+                    target="_blank"
+                    className="hidden lg:block"
+                >
                     {link}
-                </Link>
+                </a>
             </div>
         </div>
     );
