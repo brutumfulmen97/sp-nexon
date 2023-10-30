@@ -24,9 +24,9 @@ export default function Statistic() {
         shelfCTotal: 0,
         shelfDTotal: 0,
     });
-    const [sortDirection, setSortDirection] = useState("asc");
+    const [sortDirection, setSortDirection] = useState("desc");
 
-    const fetchDonations = async (page = 1, sortDirection = "asc") => {
+    const fetchDonations = async (page = 1, sortDirection = "desc") => {
         try {
             const res = await fetch(
                 `/api/sheets?page=${page}&sortDirection=${sortDirection}`
@@ -36,7 +36,7 @@ export default function Statistic() {
             setNumOfRecords(data.numOfRecords);
             setLatestRecord(data.latestRecord);
             setTotals(data.totals);
-            if (sortDirection === "asc") return data.data.reverse();
+            if (sortDirection === "desc") return data.data.reverse();
             return data.data;
         } catch (err) {
             console.error(err);
@@ -85,7 +85,7 @@ export default function Statistic() {
                         <p>C: {totals.shelfCTotal}</p>
                         <p>D: {totals.shelfDTotal}</p>
                     </div>
-                    <h2
+                    {/* <h2
                         onClick={() =>
                             setSortDirection((prev: string) => {
                                 setPage(1);
@@ -96,17 +96,106 @@ export default function Statistic() {
                         }
                     >
                         {sortDirection}
-                    </h2>
-                    <div className="flex border border-black gap-2">
-                        <p className="border-r-2 border-black">A:</p>
-                        <p className="border-r-2 border-black">B:</p>
-                        <p className="border-r-2 border-black">C:</p>
-                        <p className="border-r-2 border-black">D:</p>
-                        <p className="border-r-2 border-black">IP:</p>
-                        <p className="border-r-2 border-black">CREATED AT:</p>
-                    </div>
+                    </h2> */}
+                    <label htmlFor="sort" className="mt-2">
+                        Sort by date:
+                    </label>
+                    <select
+                        className="mb-2"
+                        name="sort"
+                        id="sort"
+                        onChange={(e) => {
+                            if (e.target.value === "asc")
+                                setSortDirection("asc");
+                            if (e.target.value === "desc")
+                                setSortDirection("desc");
+                        }}
+                        value={sortDirection}
+                    >
+                        <option value="asc">ASCENDING</option>
+                        <option value="desc">DESCENDING</option>
+                    </select>
+                    <table className="w-3/4 text-center">
+                        <thead>
+                            <tr>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>ip</th>
+                                <th>created at</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map((item: any, index: number) => {
+                                if (item.length === 0) return null;
+                                return (
+                                    <tr key={index}>
+                                        {item.map((row: any, idx: number) => {
+                                            return <td key={idx}>{row}</td>;
+                                        })}
+                                        <td>
+                                            {" "}
+                                            <button
+                                                className="border-2 p-2 border-red-600"
+                                                onClick={async () => {
+                                                    let rowNumber;
+                                                    if (
+                                                        sortDirection === "asc"
+                                                    ) {
+                                                        rowNumber =
+                                                            page === 1
+                                                                ? numOfRecords -
+                                                                  index +
+                                                                  1
+                                                                : numOfRecords -
+                                                                  page * 10 +
+                                                                  (10 - index) +
+                                                                  1;
+                                                    } else {
+                                                        rowNumber =
+                                                            page === 1
+                                                                ? index + 2
+                                                                : page * 10 -
+                                                                  10 +
+                                                                  index +
+                                                                  2;
+                                                    }
+                                                    try {
+                                                        const res = await fetch(
+                                                            "/api/delete",
+                                                            {
+                                                                method: "POST",
+                                                                headers: {
+                                                                    "Content-Type":
+                                                                        "application/json",
+                                                                },
+                                                                body: JSON.stringify(
+                                                                    {
+                                                                        rowNumber,
+                                                                    }
+                                                                ),
+                                                            }
+                                                        );
+                                                        const data =
+                                                            await res.json();
+                                                        console.log(data);
+                                                    } catch (err) {
+                                                        console.log(err);
+                                                    }
+                                                }}
+                                            >
+                                                X
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
 
-                    {data.map((item: any, index: number) => {
+                    {/* {data.map((item: any, index: number) => {
                         if (item.length === 0) return null;
                         return (
                             <div key={index} className="p-4 flex">
@@ -166,12 +255,11 @@ export default function Statistic() {
                                 })}
                             </div>
                         );
-                    })}
+                    })} */}
                     {numPages > 1 && (
                         <div className="w-full flex flex-col items-center justify-center gap-2 mt-8">
                             <h2>pagination</h2>
                             <p>you are on page: {page}</p>
-                            <p>number of record: {numOfRecords}</p>
                             <div className="flex gap-2">
                                 {Array.from({ length: numPages }).map(
                                     (_, idx) => {

@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
         }
 
         let sortRange = "";
-        if (sortDirection === "desc") {
+        if (sortDirection === "asc") {
             sortRange = `Sheet1!A${+page === 1 ? 2 : +page * 10 - 8}:F${
                 +page === 1 ? +page * 10 + 1 : +page * 10 + 1
             }`;
