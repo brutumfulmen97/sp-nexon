@@ -54,14 +54,14 @@ export default function Statistic() {
         <>
             {isPending && (
                 <div className="w-full h-screen grid place-content-center">
-                    <Loader2 className="animate-spin w-24 h-24" />
+                    <Loader2 className="animate-spin w-16 h-16" />
                 </div>
             )}
             {isError && <div>{error.message}</div>}
             {!isPending && !isError && data && (
                 <div className="w-full p-4 flex flex-col items-center justify-between">
                     {latestRecord && (
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap items-center justify-center mb-4">
                             <h2 className="font-semibold">LATEST DONATION:</h2>
                             <p>
                                 <span className="font-semibold">A:</span>{" "}

@@ -186,7 +186,8 @@ export async function POST(req: NextRequest) {
 
         if (diffMinutes < 10) {
             console.log("ne mere");
-            throw new Error("You can't submit more than once in 10 minutes");
+            return Response.json({ error: "wait 10 minutes" }, { status: 403 });
+
             return;
         }
 
@@ -211,6 +212,6 @@ export async function POST(req: NextRequest) {
         return new Response('{"success": true}', { status: 200 });
     } catch (err: any) {
         console.log(err);
-        return Response.json({ error: err.message }, { status: 403 });
+        return Response.json({ error: err.message }, { status: 500 });
     }
 }
