@@ -164,7 +164,34 @@ export async function POST(req: NextRequest) {
             version: "v4",
         });
 
-        const response = await sheet.spreadsheets.values.append({
+        const response1 = await sheet.spreadsheets.values.get({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID!,
+            range: "Sheet1!E2:E",
+        });
+
+        const lastRecord = response1.data.values?.flat().lastIndexOf(ip);
+
+        console.log(lastRecord);
+
+        const res2 = await sheet.spreadsheets.values.get({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID!,
+            range: `Sheet1!F${lastRecord! + 2}`,
+        });
+
+        const lastRecordCreatedAt = res2.data.values?.flat()[0];
+
+        const date = new Date(lastRecordCreatedAt);
+        const now = new Date();
+        const diff = now.getTime() - date.getTime();
+        const diffMinutes = Math.floor(diff / 1000 / 60);
+        console.log(diffMinutes);
+
+        if (diffMinutes < 10) {
+            console.log("ne mere");
+            return new Response('{"success": false}', { status: 400 });
+        }
+
+        await sheet.spreadsheets.values.append({
             spreadsheetId: process.env.GOOGLE_SHEET_ID!,
             range: "A2:F2",
             valueInputOption: "USER_ENTERED",
