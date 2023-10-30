@@ -18,7 +18,8 @@ export default function Sweater({
     return (
         <>
             <Image
-                src={!isSorted ? imgBig : imgSmall}
+                // src={!isSorted ? imgBig : imgSmall}
+                src={imgBig}
                 width={200}
                 height={200}
                 style={{

@@ -73,34 +73,34 @@ export default function Home() {
             const shelfCCount = shelves[2].elements.length;
             const shelfDCount = shelves[3].elements.length;
 
-            const res = await fetch("/api/sheets", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    shelfACount,
-                    shelfBCount,
-                    shelfCCount,
-                    shelfDCount,
-                }),
-            });
-            return await res.json();
+            try {
+                const res = await fetch("/api/sheets", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        shelfACount,
+                        shelfBCount,
+                        shelfCCount,
+                        shelfDCount,
+                    }),
+                });
+
+                if (res.status === 403) {
+                    throw new Error("Wait 10 minutes");
+                }
+
+                if (res.status > 403) {
+                    throw new Error("Somethnig went wrong");
+                }
+
+                toast.success("Köszönjük a felajánlást!");
+            } catch (error: any) {
+                toast.error(error.message);
+            }
         },
         mutationKey: ["donations"],
-        onSuccess: () => {
-            // setParents(initialParents);
-            // setShelves(initialShelves);
-            // router.push("/statistics");
-            toast.success("bravo");
-            console.log("success");
-            // TODO: toaster
-        },
-        onError: () => {
-            console.log("error");
-            toast.error("cekaj 10 min");
-            // TODO: toaster
-        },
     });
 
     function handleDragEnd(event: any) {

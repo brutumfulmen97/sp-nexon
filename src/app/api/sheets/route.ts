@@ -187,8 +187,6 @@ export async function POST(req: NextRequest) {
         if (diffMinutes < 10) {
             console.log("ne mere");
             return Response.json({ error: "wait 10 minutes" }, { status: 403 });
-
-            return;
         }
 
         await sheet.spreadsheets.values.append({
